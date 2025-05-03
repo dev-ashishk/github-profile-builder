@@ -92,6 +92,8 @@ export function TooltipGuide({ steps, isOpen, onClose }) {
   const handleClose = () => {
     setCurrentStep(0);
     onClose();
+    // Mark that the user has seen the guide
+    localStorage.setItem("github-profile-guide-seen", "true");
   };
 
   if (!isOpen || !steps || steps.length === 0) return null;

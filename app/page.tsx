@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  defaultProfileData,
+  defaultSections,
+  defaultThemes,
+} from "@/data/default-data";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 import { Check, Copy, RefreshCw, AlertCircle } from "lucide-react";
@@ -16,11 +21,6 @@ import { GitHubContributionGraph } from "@/components/github-contribution-graph"
 import { trackEvent } from "@/utils/analytics";
 import { fetchGitHubData } from "@/services/github";
 import { generateMarkdown } from "@/utils/markdown-generator";
-import {
-  defaultProfileData,
-  defaultSections,
-  defaultThemes,
-} from "@/data/default-data";
 import { ElegantLandingPage } from "@/components/elegant-landing-page";
 import { TooltipGuide } from "@/components/tooltip-guide";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -320,8 +320,19 @@ export default function Home() {
   // Start the builder
   const handleStartBuilder = () => {
     setShowLandingPage(false);
-    // Show the guide after a short delay
-    setTimeout(() => setShowGuide(true), 1000);
+    // Check if user has seen the guide before
+    const hasSeenGuide = localStorage.getItem("github-profile-guide-seen");
+    // Only show the guide for new users
+    if (!hasSeenGuide) {
+      setTimeout(() => {
+        setShowGuide(true);
+        // Mark that the user has seen the guide
+        localStorage.setItem("github-profile-guide-seen", "true");
+        trackEvent("guide_shown", "user_experience", "first_time_user");
+      }, 1000);
+    } else {
+      trackEvent("returning_user", "user_experience", "guide_skipped");
+    }
 
     // Track this action in Google Analytics
     trackEvent("start_builder", "user_action", "landing_page");
@@ -341,6 +352,17 @@ export default function Home() {
       "user_action",
       "preview_toggle"
     );
+  };
+
+  // Reset guide to show again
+  const handleResetGuide = () => {
+    localStorage.removeItem("github-profile-guide-seen");
+    setShowGuide(true);
+    trackEvent("guide_reset", "user_action", "manual_reset");
+    toast({
+      title: "Guide reset",
+      description: "The interactive guide will show again on your next visit",
+    });
   };
 
   if (showLandingPage) {
@@ -374,6 +396,14 @@ export default function Home() {
               Create an impressive GitHub profile page with our easy-to-use
               builder
             </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleResetGuide}
+              className="mt-2"
+            >
+              Show Guide
+            </Button>
           </motion.div>
 
           {hasLoadedFromStorage && (
