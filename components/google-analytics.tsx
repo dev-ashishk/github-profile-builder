@@ -1,29 +1,38 @@
-"use client"
+"use client";
 
-import Script from "next/script"
-import { usePathname, useSearchParams } from "next/navigation"
-import { useEffect } from "react"
+import { usePathname, useSearchParams } from "next/navigation";
+import Script from "next/script";
+import { useEffect } from "react";
 
-export default function GoogleAnalytics({ GA_MEASUREMENT_ID }: { GA_MEASUREMENT_ID: string }) {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+export default function GoogleAnalytics({
+  GA_MEASUREMENT_ID,
+}: {
+  GA_MEASUREMENT_ID: string;
+}) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "") return
+    if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "") return;
 
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "")
+    const url =
+      pathname +
+      (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
     // Send pageview with the page's URL
     window.gtag?.("config", GA_MEASUREMENT_ID, {
       page_path: url,
-    })
-  }, [pathname, searchParams, GA_MEASUREMENT_ID])
+    });
+  }, [pathname, searchParams, GA_MEASUREMENT_ID]);
 
-  if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "") return null
+  if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === "") return null;
 
   return (
     <>
-      <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
       <Script
         id="google-analytics"
         strategy="afterInteractive"
@@ -39,5 +48,5 @@ export default function GoogleAnalytics({ GA_MEASUREMENT_ID }: { GA_MEASUREMENT_
         }}
       />
     </>
-  )
+  );
 }

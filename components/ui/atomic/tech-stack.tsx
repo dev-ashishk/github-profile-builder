@@ -1,22 +1,23 @@
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
-import Image from "next/image"
+import Image from "next/image";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface TechItem {
-  name: string
-  icon?: string
-  category?: string
-  proficiency?: number
+  name: string;
+  icon?: string;
+  category?: string;
+  proficiency?: number;
 }
 
 interface TechStackProps {
-  items: TechItem[]
-  title?: string
-  className?: string
-  primaryColor?: string
-  secondaryColor?: string
-  showProficiency?: boolean
-  categorized?: boolean
+  items: TechItem[];
+  title?: string;
+  className?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  showProficiency?: boolean;
+  categorized?: boolean;
 }
 
 export function TechStack({
@@ -28,20 +29,17 @@ export function TechStack({
   showProficiency = false,
   categorized = false,
 }: TechStackProps) {
-  if (!items || items.length === 0) return null
+  if (!items || items.length === 0) return null;
 
   // Group by category if categorized is true
   const groupedItems = categorized
-    ? items.reduce(
-        (acc, item) => {
-          const category = item.category || "Other"
-          if (!acc[category]) acc[category] = []
-          acc[category].push(item)
-          return acc
-        },
-        {} as Record<string, TechItem[]>,
-      )
-    : { All: items }
+    ? items.reduce((acc, item) => {
+        const category = item.category || "Other";
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(item);
+        return acc;
+      }, {} as Record<string, TechItem[]>)
+    : { All: items };
 
   return (
     <Section className={className}>
@@ -58,7 +56,12 @@ export function TechStack({
             <Container className="p-6">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {categoryItems.map((item, index) => (
-                  <TechItem key={index} item={item} showProficiency={showProficiency} primaryColor={primaryColor} />
+                  <TechItem
+                    key={index}
+                    item={item}
+                    showProficiency={showProficiency}
+                    primaryColor={primaryColor}
+                  />
                 ))}
               </div>
             </Container>
@@ -68,19 +71,24 @@ export function TechStack({
         <Container className="p-6">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {items.map((item, index) => (
-              <TechItem key={index} item={item} showProficiency={showProficiency} primaryColor={primaryColor} />
+              <TechItem
+                key={index}
+                item={item}
+                showProficiency={showProficiency}
+                primaryColor={primaryColor}
+              />
             ))}
           </div>
         </Container>
       )}
     </Section>
-  )
+  );
 }
 
 interface TechItemProps {
-  item: TechItem
-  showProficiency: boolean
-  primaryColor?: string
+  item: TechItem;
+  showProficiency: boolean;
+  primaryColor?: string;
 }
 
 function TechItem({ item, showProficiency, primaryColor }: TechItemProps) {
@@ -119,5 +127,5 @@ function TechItem({ item, showProficiency, primaryColor }: TechItemProps) {
         </div>
       )}
     </div>
-  )
+  );
 }

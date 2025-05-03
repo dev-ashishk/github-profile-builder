@@ -1,14 +1,5 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { X, Plus, Trash2, Edit2, GraduationCap } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -16,13 +7,29 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import { X, Plus, Trash2, Edit2, GraduationCap } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function EducationForm({ profileData, setProfileData }) {
-  const { toast } = useToast()
-  const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false)
-  const [editingEducationIndex, setEditingEducationIndex] = useState(null)
-  const [newAchievement, setNewAchievement] = useState("")
+  const { toast } = useToast();
+  const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false);
+  const [editingEducationIndex, setEditingEducationIndex] = useState(null);
+  const [newAchievement, setNewAchievement] = useState("");
   const [newEducation, setNewEducation] = useState({
     institution: "",
     degree: "",
@@ -34,33 +41,38 @@ export function EducationForm({ profileData, setProfileData }) {
     logo: "",
     gpa: "",
     achievements: [],
-  })
+  });
 
   const handleEducationInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setNewEducation({
       ...newEducation,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleAddAchievement = (e) => {
-    e.preventDefault()
-    if (newAchievement.trim() && !newEducation.achievements.includes(newAchievement.trim())) {
+    e.preventDefault();
+    if (
+      newAchievement.trim() &&
+      !newEducation.achievements.includes(newAchievement.trim())
+    ) {
       setNewEducation({
         ...newEducation,
         achievements: [...newEducation.achievements, newAchievement.trim()],
-      })
-      setNewAchievement("")
+      });
+      setNewAchievement("");
     }
-  }
+  };
 
   const handleRemoveAchievement = (achievementToRemove) => {
     setNewEducation({
       ...newEducation,
-      achievements: newEducation.achievements.filter((achievement) => achievement !== achievementToRemove),
-    })
-  }
+      achievements: newEducation.achievements.filter(
+        (achievement) => achievement !== achievementToRemove
+      ),
+    });
+  };
 
   const handleAddEducation = () => {
     if (!newEducation.institution.trim() || !newEducation.degree.trim()) {
@@ -68,27 +80,27 @@ export function EducationForm({ profileData, setProfileData }) {
         title: "Required fields missing",
         description: "Please enter an institution and degree",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
     if (editingEducationIndex !== null) {
       // Update existing education
-      const updatedEducation = [...(profileData.education || [])]
-      updatedEducation[editingEducationIndex] = newEducation
+      const updatedEducation = [...(profileData.education || [])];
+      updatedEducation[editingEducationIndex] = newEducation;
 
       setProfileData({
         ...profileData,
         education: updatedEducation,
-      })
+      });
 
-      setEditingEducationIndex(null)
+      setEditingEducationIndex(null);
     } else {
       // Add new education
       setProfileData({
         ...profileData,
         education: [...(profileData.education || []), newEducation],
-      })
+      });
     }
 
     // Reset form
@@ -103,39 +115,42 @@ export function EducationForm({ profileData, setProfileData }) {
       logo: "",
       gpa: "",
       achievements: [],
-    })
+    });
 
-    setIsEducationDialogOpen(false)
+    setIsEducationDialogOpen(false);
 
     toast({
-      title: editingEducationIndex !== null ? "Education updated" : "Education added",
+      title:
+        editingEducationIndex !== null
+          ? "Education updated"
+          : "Education added",
       description:
         editingEducationIndex !== null
           ? "Your education has been updated successfully"
           : "Your education has been added to your profile",
-    })
-  }
+    });
+  };
 
   const handleEditEducation = (index) => {
-    setNewEducation({ ...profileData.education[index] })
-    setEditingEducationIndex(index)
-    setIsEducationDialogOpen(true)
-  }
+    setNewEducation({ ...profileData.education[index] });
+    setEditingEducationIndex(index);
+    setIsEducationDialogOpen(true);
+  };
 
   const handleDeleteEducation = (index) => {
-    const updatedEducation = [...profileData.education]
-    updatedEducation.splice(index, 1)
+    const updatedEducation = [...profileData.education];
+    updatedEducation.splice(index, 1);
 
     setProfileData({
       ...profileData,
       education: updatedEducation,
-    })
+    });
 
     toast({
       title: "Education deleted",
       description: "The education entry has been removed from your profile",
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -154,9 +169,9 @@ export function EducationForm({ profileData, setProfileData }) {
               logo: "",
               gpa: "",
               achievements: [],
-            })
-            setEditingEducationIndex(null)
-            setIsEducationDialogOpen(true)
+            });
+            setEditingEducationIndex(null);
+            setIsEducationDialogOpen(true);
           }}
         >
           <Plus size={16} className="mr-2" />
@@ -171,8 +186,12 @@ export function EducationForm({ profileData, setProfileData }) {
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg">{education.degree}</CardTitle>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{education.institution}</p>
+                    <CardTitle className="text-lg">
+                      {education.degree}
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {education.institution}
+                    </p>
                   </div>
                   <p className="text-sm text-gray-500">
                     {education.startDate} - {education.endDate || "Present"}
@@ -181,32 +200,53 @@ export function EducationForm({ profileData, setProfileData }) {
               </CardHeader>
               <CardContent className="pb-2">
                 {education.field && (
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Field: {education.field}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                    Field: {education.field}
+                  </p>
                 )}
                 {education.location && (
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Location: {education.location}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                    Location: {education.location}
+                  </p>
                 )}
-                {education.gpa && <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">GPA: {education.gpa}</p>}
+                {education.gpa && (
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                    GPA: {education.gpa}
+                  </p>
+                )}
                 {education.description && (
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{education.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    {education.description}
+                  </p>
                 )}
 
-                {education.achievements && education.achievements.length > 0 && (
-                  <div>
-                    <p className="text-sm font-medium mb-1">Achievements:</p>
-                    <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300">
-                      {education.achievements.map((achievement, achievementIndex) => (
-                        <li key={achievementIndex}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {education.achievements &&
+                  education.achievements.length > 0 && (
+                    <div>
+                      <p className="text-sm font-medium mb-1">Achievements:</p>
+                      <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300">
+                        {education.achievements.map(
+                          (achievement, achievementIndex) => (
+                            <li key={achievementIndex}>{achievement}</li>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  )}
               </CardContent>
               <CardFooter className="flex justify-between pt-0">
-                <Button variant="ghost" size="sm" onClick={() => handleEditEducation(index)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleEditEducation(index)}
+                >
                   <Edit2 size={14} className="mr-1" /> Edit
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => handleDeleteEducation(index)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleDeleteEducation(index)}
+                >
                   <Trash2 size={14} className="mr-1" /> Delete
                 </Button>
               </CardFooter>
@@ -218,7 +258,9 @@ export function EducationForm({ profileData, setProfileData }) {
           <div className="bg-white dark:bg-gray-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
             <GraduationCap size={24} className="text-gray-400" />
           </div>
-          <p className="text-gray-500 dark:text-gray-400">No education added yet</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            No education added yet
+          </p>
           <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
             Click "Add Education" to showcase your academic background
           </p>
@@ -226,12 +268,20 @@ export function EducationForm({ profileData, setProfileData }) {
       )}
 
       {/* Education Dialog */}
-      <Dialog open={isEducationDialogOpen} onOpenChange={setIsEducationDialogOpen}>
+      <Dialog
+        open={isEducationDialogOpen}
+        onOpenChange={setIsEducationDialogOpen}
+      >
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingEducationIndex !== null ? "Edit Education" : "Add Education"}</DialogTitle>
+            <DialogTitle>
+              {editingEducationIndex !== null
+                ? "Edit Education"
+                : "Add Education"}
+            </DialogTitle>
             <DialogDescription>
-              Add details about your educational background to showcase in your GitHub profile.
+              Add details about your educational background to showcase in your
+              GitHub profile.
             </DialogDescription>
           </DialogHeader>
 
@@ -340,7 +390,9 @@ export function EducationForm({ profileData, setProfileData }) {
                 onChange={handleEducationInputChange}
                 placeholder="e.g. https://example.com/university-logo.png"
               />
-              <p className="text-xs text-gray-500">Leave empty for a default icon</p>
+              <p className="text-xs text-gray-500">
+                Leave empty for a default icon
+              </p>
             </div>
 
             <div className="space-y-2">
@@ -359,7 +411,11 @@ export function EducationForm({ profileData, setProfileData }) {
 
               <div className="flex flex-wrap gap-2 mt-2">
                 {newEducation.achievements.map((achievement, index) => (
-                  <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="flex items-center gap-1 px-3 py-1"
+                  >
                     {achievement}
                     <button
                       onClick={() => handleRemoveAchievement(achievement)}
@@ -371,7 +427,9 @@ export function EducationForm({ profileData, setProfileData }) {
                   </Badge>
                 ))}
                 {newEducation.achievements.length === 0 && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No achievements added yet</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    No achievements added yet
+                  </p>
                 )}
               </div>
             </div>
@@ -379,11 +437,13 @@ export function EducationForm({ profileData, setProfileData }) {
 
           <DialogFooter>
             <Button onClick={handleAddEducation}>
-              {editingEducationIndex !== null ? "Update Education" : "Add Education"}
+              {editingEducationIndex !== null
+                ? "Update Education"
+                : "Add Education"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

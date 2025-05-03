@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Github } from "lucide-react"
+import { motion } from "framer-motion";
+import { ArrowRight, Github } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
@@ -15,9 +16,12 @@ export function CTASection() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Create Your GitHub Profile?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Create Your GitHub Profile?
+          </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            Join thousands of developers who have enhanced their GitHub presence with our profile builder
+            Join thousands of developers who have enhanced their GitHub presence
+            with our profile builder
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -26,7 +30,11 @@ export function CTASection() {
               <ArrowRight size={18} />
             </Button>
             <Button size="lg" variant="outline" className="gap-2" asChild>
-              <a href="https://github.com/dev-ashishk/github-profile-builder" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/dev-ashishk/github-profile-builder"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Github size={18} />
                 Star on GitHub
               </a>
@@ -35,5 +43,5 @@ export function CTASection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

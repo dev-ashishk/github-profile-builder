@@ -1,13 +1,5 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { Switch } from "@/components/ui/switch"
-import { Badge } from "@/components/ui/badge"
 import {
   X,
   RefreshCw,
@@ -23,11 +15,7 @@ import {
   Github,
   Copy,
   Download,
-} from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ColorPicker } from "@/components/color-picker"
-import { useToast } from "@/hooks/use-toast"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -35,11 +23,44 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { RepositoryCustomizer, defaultRepoSettings } from "@/components/repository-customizer"
-import { EducationForm } from "@/components/education-form"
+} from "@/components/ui/dialog";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ColorPicker } from "@/components/color-picker";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  RepositoryCustomizer,
+  defaultRepoSettings,
+} from "@/components/repository-customizer";
+import { EducationForm } from "@/components/education-form";
 
 export function ProfileForm({
   profileData,
@@ -50,8 +71,8 @@ export function ProfileForm({
   fetchGitHubData,
   isFetching,
 }) {
-  const { toast } = useToast()
-  const [newSkill, setNewSkill] = useState("")
+  const { toast } = useToast();
+  const [newSkill, setNewSkill] = useState("");
   const [newProject, setNewProject] = useState({
     title: "",
     description: "",
@@ -59,10 +80,10 @@ export function ProfileForm({
     image: "/placeholder.svg",
     repoUrl: "",
     liveUrl: "",
-  })
-  const [newProjectSkill, setNewProjectSkill] = useState("")
-  const [editingProjectIndex, setEditingProjectIndex] = useState(null)
-  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false)
+  });
+  const [newProjectSkill, setNewProjectSkill] = useState("");
+  const [editingProjectIndex, setEditingProjectIndex] = useState(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
 
   const [newExperience, setNewExperience] = useState({
     title: "",
@@ -70,62 +91,62 @@ export function ProfileForm({
     period: "",
     description: "",
     tags: [],
-  })
-  const [newExperienceTag, setNewExperienceTag] = useState("")
-  const [editingExperienceIndex, setEditingExperienceIndex] = useState(null)
-  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false)
+  });
+  const [newExperienceTag, setNewExperienceTag] = useState("");
+  const [editingExperienceIndex, setEditingExperienceIndex] = useState(null);
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
 
   const [newSocialLink, setNewSocialLink] = useState({
     platform: "",
     url: "",
-  })
-  const [isSocialDialogOpen, setIsSocialDialogOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState("profile")
-  const [copied, setCopied] = useState(false)
+  });
+  const [isSocialDialogOpen, setIsSocialDialogOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("profile");
+  const [copied, setCopied] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setProfileData({
       ...profileData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSwitchChange = (name, checked) => {
     setProfileData({
       ...profileData,
       [name]: checked,
-    })
-  }
+    });
+  };
 
   const handleAddSkill = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newSkill.trim() && !profileData.skills.includes(newSkill.trim())) {
       setProfileData({
         ...profileData,
         skills: [...profileData.skills, newSkill.trim()],
-      })
-      setNewSkill("")
+      });
+      setNewSkill("");
     }
-  }
+  };
 
   const handleRemoveSkill = (skillToRemove) => {
     setProfileData({
       ...profileData,
       skills: profileData.skills.filter((skill) => skill !== skillToRemove),
-    })
-  }
+    });
+  };
 
   const handleTemplateChange = (value) => {
-    setActiveTemplate(value)
-  }
+    setActiveTemplate(value);
+  };
 
   const handleColorChange = (colors) => {
     setProfileData({
       ...profileData,
       colors: colors,
-    })
-  }
+    });
+  };
 
   const handleFetchGitHubData = async () => {
     if (!profileData.github.trim()) {
@@ -133,44 +154,49 @@ export function ProfileForm({
         title: "GitHub username required",
         description: "Please enter a GitHub username to fetch data",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
     try {
-      await fetchGitHubData(profileData.github)
+      await fetchGitHubData(profileData.github);
     } catch (error) {
       // Error is already handled in the fetchGitHubData function
-      console.error("Error in handleFetchGitHubData:", error)
+      console.error("Error in handleFetchGitHubData:", error);
     }
-  }
+  };
 
   // Project management functions
   const handleProjectInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setNewProject({
       ...newProject,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleAddProjectSkill = (e) => {
-    e.preventDefault()
-    if (newProjectSkill.trim() && !newProject.technologies.includes(newProjectSkill.trim())) {
+    e.preventDefault();
+    if (
+      newProjectSkill.trim() &&
+      !newProject.technologies.includes(newProjectSkill.trim())
+    ) {
       setNewProject({
         ...newProject,
         technologies: [...newProject.technologies, newProjectSkill.trim()],
-      })
-      setNewProjectSkill("")
+      });
+      setNewProjectSkill("");
     }
-  }
+  };
 
   const handleRemoveProjectSkill = (skillToRemove) => {
     setNewProject({
       ...newProject,
-      technologies: newProject.technologies.filter((skill) => skill !== skillToRemove),
-    })
-  }
+      technologies: newProject.technologies.filter(
+        (skill) => skill !== skillToRemove
+      ),
+    });
+  };
 
   const handleAddProject = () => {
     if (!newProject.title.trim()) {
@@ -178,27 +204,27 @@ export function ProfileForm({
         title: "Project title required",
         description: "Please enter a title for your project",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
     if (editingProjectIndex !== null) {
       // Update existing project
-      const updatedProjects = [...profileData.projects]
-      updatedProjects[editingProjectIndex] = newProject
+      const updatedProjects = [...profileData.projects];
+      updatedProjects[editingProjectIndex] = newProject;
 
       setProfileData({
         ...profileData,
         projects: updatedProjects,
-      })
+      });
 
-      setEditingProjectIndex(null)
+      setEditingProjectIndex(null);
     } else {
       // Add new project
       setProfileData({
         ...profileData,
         projects: [...(profileData.projects || []), newProject],
-      })
+      });
     }
 
     // Reset form
@@ -209,9 +235,9 @@ export function ProfileForm({
       image: "/placeholder.svg",
       repoUrl: "",
       liveUrl: "",
-    })
+    });
 
-    setIsProjectDialogOpen(false)
+    setIsProjectDialogOpen(false);
 
     toast({
       title: editingProjectIndex !== null ? "Project updated" : "Project added",
@@ -219,56 +245,59 @@ export function ProfileForm({
         editingProjectIndex !== null
           ? "Your project has been updated successfully"
           : "Your project has been added to your profile",
-    })
-  }
+    });
+  };
 
   const handleEditProject = (index) => {
-    setNewProject({ ...profileData.projects[index] })
-    setEditingProjectIndex(index)
-    setIsProjectDialogOpen(true)
-  }
+    setNewProject({ ...profileData.projects[index] });
+    setEditingProjectIndex(index);
+    setIsProjectDialogOpen(true);
+  };
 
   const handleDeleteProject = (index) => {
-    const updatedProjects = [...profileData.projects]
-    updatedProjects.splice(index, 1)
+    const updatedProjects = [...profileData.projects];
+    updatedProjects.splice(index, 1);
 
     setProfileData({
       ...profileData,
       projects: updatedProjects,
-    })
+    });
 
     toast({
       title: "Project deleted",
       description: "The project has been removed from your profile",
-    })
-  }
+    });
+  };
 
   // Experience management functions
   const handleExperienceInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setNewExperience({
       ...newExperience,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleAddExperienceTag = (e) => {
-    e.preventDefault()
-    if (newExperienceTag.trim() && !newExperience.tags.includes(newExperienceTag.trim())) {
+    e.preventDefault();
+    if (
+      newExperienceTag.trim() &&
+      !newExperience.tags.includes(newExperienceTag.trim())
+    ) {
       setNewExperience({
         ...newExperience,
         tags: [...newExperience.tags, newExperienceTag.trim()],
-      })
-      setNewExperienceTag("")
+      });
+      setNewExperienceTag("");
     }
-  }
+  };
 
   const handleRemoveExperienceTag = (tagToRemove) => {
     setNewExperience({
       ...newExperience,
       tags: newExperience.tags.filter((tag) => tag !== tagToRemove),
-    })
-  }
+    });
+  };
 
   const handleAddExperience = () => {
     if (!newExperience.title.trim() || !newExperience.organization.trim()) {
@@ -276,27 +305,27 @@ export function ProfileForm({
         title: "Required fields missing",
         description: "Please enter a title and organization",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
     if (editingExperienceIndex !== null) {
       // Update existing experience
-      const updatedTimeline = [...profileData.timeline]
-      updatedTimeline[editingExperienceIndex] = newExperience
+      const updatedTimeline = [...profileData.timeline];
+      updatedTimeline[editingExperienceIndex] = newExperience;
 
       setProfileData({
         ...profileData,
         timeline: updatedTimeline,
-      })
+      });
 
-      setEditingExperienceIndex(null)
+      setEditingExperienceIndex(null);
     } else {
       // Add new experience
       setProfileData({
         ...profileData,
         timeline: [...(profileData.timeline || []), newExperience],
-      })
+      });
     }
 
     // Reset form
@@ -306,48 +335,51 @@ export function ProfileForm({
       period: "",
       description: "",
       tags: [],
-    })
+    });
 
-    setIsExperienceDialogOpen(false)
+    setIsExperienceDialogOpen(false);
 
     toast({
-      title: editingExperienceIndex !== null ? "Experience updated" : "Experience added",
+      title:
+        editingExperienceIndex !== null
+          ? "Experience updated"
+          : "Experience added",
       description:
         editingExperienceIndex !== null
           ? "Your work experience has been updated successfully"
           : "Your work experience has been added to your profile",
-    })
-  }
+    });
+  };
 
   const handleEditExperience = (index) => {
-    setNewExperience({ ...profileData.timeline[index] })
-    setEditingExperienceIndex(index)
-    setIsExperienceDialogOpen(true)
-  }
+    setNewExperience({ ...profileData.timeline[index] });
+    setEditingExperienceIndex(index);
+    setIsExperienceDialogOpen(true);
+  };
 
   const handleDeleteExperience = (index) => {
-    const updatedTimeline = [...profileData.timeline]
-    updatedTimeline.splice(index, 1)
+    const updatedTimeline = [...profileData.timeline];
+    updatedTimeline.splice(index, 1);
 
     setProfileData({
       ...profileData,
       timeline: updatedTimeline,
-    })
+    });
 
     toast({
       title: "Experience deleted",
       description: "The work experience has been removed from your profile",
-    })
-  }
+    });
+  };
 
   // Social links management
   const handleSocialLinkInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setNewSocialLink({
       ...newSocialLink,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleAddSocialLink = () => {
     if (!newSocialLink.platform.trim() || !newSocialLink.url.trim()) {
@@ -355,8 +387,8 @@ export function ProfileForm({
         title: "Required fields missing",
         description: "Please enter both platform name and URL",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
     // Add new social link
@@ -366,25 +398,25 @@ export function ProfileForm({
         ...profileData.contactInfo,
         socials: [...(profileData.contactInfo?.socials || []), newSocialLink],
       },
-    })
+    });
 
     // Reset form
     setNewSocialLink({
       platform: "",
       url: "",
-    })
+    });
 
-    setIsSocialDialogOpen(false)
+    setIsSocialDialogOpen(false);
 
     toast({
       title: "Social link added",
       description: "Your social link has been added to your profile",
-    })
-  }
+    });
+  };
 
   const handleDeleteSocialLink = (index) => {
-    const updatedSocials = [...profileData.contactInfo.socials]
-    updatedSocials.splice(index, 1)
+    const updatedSocials = [...profileData.contactInfo.socials];
+    updatedSocials.splice(index, 1);
 
     setProfileData({
       ...profileData,
@@ -392,59 +424,62 @@ export function ProfileForm({
         ...profileData.contactInfo,
         socials: updatedSocials,
       },
-    })
+    });
 
     toast({
       title: "Social link deleted",
       description: "The social link has been removed from your profile",
-    })
-  }
+    });
+  };
 
   const handleCopyMarkdown = async () => {
     try {
-      await navigator.clipboard.writeText(handleGenerateMarkdown(activeTemplate))
-      setCopied(true)
+      await navigator.clipboard.writeText(
+        handleGenerateMarkdown(activeTemplate)
+      );
+      setCopied(true);
       toast({
         title: "Copied to clipboard",
-        description: "You can now paste this into your GitHub profile README.md file",
-      })
-      setTimeout(() => setCopied(false), 2000)
+        description:
+          "You can now paste this into your GitHub profile README.md file",
+      });
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       toast({
         title: "Failed to copy",
         description: "Please try again or copy manually",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   const handleDownloadMarkdown = () => {
-    const markdown = handleGenerateMarkdown(activeTemplate)
-    const blob = new Blob([markdown], { type: "text/markdown" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = "README.md"
-    a.click()
-    URL.revokeObjectURL(url)
+    const markdown = handleGenerateMarkdown(activeTemplate);
+    const blob = new Blob([markdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "README.md";
+    a.click();
+    URL.revokeObjectURL(url);
 
     toast({
       title: "Downloaded README.md",
       description: "Your markdown file has been downloaded",
-    })
-  }
+    });
+  };
 
   const handleOpenInGitHub = () => {
     if (profileData.github) {
-      window.open(`https://github.com/${profileData.github}`, "_blank")
+      window.open(`https://github.com/${profileData.github}`, "_blank");
     } else {
       toast({
         title: "GitHub username required",
         description: "Please enter a GitHub username first",
         variant: "destructive",
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -609,7 +644,9 @@ export function ProfileForm({
                   </Button>
                 </div>
                 {profileData.githubDataFetched && (
-                  <p className="text-xs text-green-600 dark:text-green-400">GitHub data successfully fetched</p>
+                  <p className="text-xs text-green-600 dark:text-green-400">
+                    GitHub data successfully fetched
+                  </p>
                 )}
               </div>
               <div className="space-y-2">
@@ -653,7 +690,7 @@ export function ProfileForm({
                         ...profileData.contactInfo,
                         email: e.target.value,
                       },
-                    })
+                    });
                   }}
                   placeholder="e.g. yourname@example.com"
                 />
@@ -664,7 +701,9 @@ export function ProfileForm({
                 <Input
                   id="customLocation"
                   name="customLocation"
-                  value={profileData.contactInfo?.location || profileData.location}
+                  value={
+                    profileData.contactInfo?.location || profileData.location
+                  }
                   onChange={(e) => {
                     setProfileData({
                       ...profileData,
@@ -672,23 +711,30 @@ export function ProfileForm({
                         ...profileData.contactInfo,
                         location: e.target.value,
                       },
-                    })
+                    });
                   }}
                   placeholder="e.g. San Francisco, CA"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400">Override location information from GitHub</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Override location information from GitHub
+                </p>
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center mb-2">
                   <Label>Additional Social Links</Label>
-                  <Button size="sm" variant="outline" onClick={() => setIsSocialDialogOpen(true)}>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setIsSocialDialogOpen(true)}
+                  >
                     <Plus size={14} className="mr-1" />
                     Add Link
                   </Button>
                 </div>
 
-                {profileData.contactInfo?.socials && profileData.contactInfo.socials.length > 0 ? (
+                {profileData.contactInfo?.socials &&
+                profileData.contactInfo.socials.length > 0 ? (
                   <div className="space-y-2">
                     {profileData.contactInfo.socials.map((social, index) => (
                       <div
@@ -706,14 +752,20 @@ export function ProfileForm({
                             {social.url}
                           </a>
                         </div>
-                        <Button variant="ghost" size="sm" onClick={() => handleDeleteSocialLink(index)}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteSocialLink(index)}
+                        >
                           <Trash2 size={14} />
                         </Button>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No additional social links added</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    No additional social links added
+                  </p>
                 )}
               </div>
             </div>
@@ -723,7 +775,9 @@ export function ProfileForm({
         {/* Skills Tab */}
         <TabsContent value="skills" className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Skills & Technologies</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              Skills & Technologies
+            </h3>
             <form onSubmit={handleAddSkill} className="flex gap-2 mb-4">
               <Input
                 value={newSkill}
@@ -736,7 +790,11 @@ export function ProfileForm({
 
             <div className="flex flex-wrap gap-2 mt-2">
               {profileData.skills.map((skill, index) => (
-                <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className="flex items-center gap-1 px-3 py-1"
+                >
                   {skill}
                   <button
                     onClick={() => handleRemoveSkill(skill)}
@@ -748,7 +806,9 @@ export function ProfileForm({
                 </Badge>
               ))}
               {profileData.skills.length === 0 && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">No skills added yet</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  No skills added yet
+                </p>
               )}
             </div>
           </div>
@@ -769,7 +829,9 @@ export function ProfileForm({
                   <Switch
                     id="showProjects"
                     checked={profileData.showProjects}
-                    onCheckedChange={(checked) => handleSwitchChange("showProjects", checked)}
+                    onCheckedChange={(checked) =>
+                      handleSwitchChange("showProjects", checked)
+                    }
                   />
                 </div>
                 <Button
@@ -781,9 +843,9 @@ export function ProfileForm({
                       image: "/placeholder.svg",
                       repoUrl: "",
                       liveUrl: "",
-                    })
-                    setEditingProjectIndex(null)
-                    setIsProjectDialogOpen(true)
+                    });
+                    setEditingProjectIndex(null);
+                    setIsProjectDialogOpen(true);
                   }}
                 >
                   <Plus size={16} className="mr-2" />
@@ -800,20 +862,34 @@ export function ProfileForm({
                       <CardTitle className="text-lg">{project.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="pb-2">
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        {project.description}
+                      </p>
                       <div className="flex flex-wrap gap-1 mb-2">
                         {project.technologies.map((tech, techIndex) => (
-                          <Badge key={techIndex} variant="outline" className="text-xs">
+                          <Badge
+                            key={techIndex}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {tech}
                           </Badge>
                         ))}
                       </div>
                     </CardContent>
                     <CardFooter className="flex justify-between pt-0">
-                      <Button variant="ghost" size="sm" onClick={() => handleEditProject(index)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEditProject(index)}
+                      >
                         <Edit2 size={14} className="mr-1" /> Edit
                       </Button>
-                      <Button variant="ghost" size="sm" onClick={() => handleDeleteProject(index)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteProject(index)}
+                      >
                         <Trash2 size={14} className="mr-1" /> Delete
                       </Button>
                     </CardFooter>
@@ -822,7 +898,9 @@ export function ProfileForm({
               </div>
             ) : (
               <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <p className="text-gray-500 dark:text-gray-400">No projects added yet</p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  No projects added yet
+                </p>
                 <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
                   Click "Add Project" to showcase your work
                 </p>
@@ -842,7 +920,9 @@ export function ProfileForm({
                   <Switch
                     id="showTimeline"
                     checked={profileData.showTimeline}
-                    onCheckedChange={(checked) => handleSwitchChange("showTimeline", checked)}
+                    onCheckedChange={(checked) =>
+                      handleSwitchChange("showTimeline", checked)
+                    }
                   />
                 </div>
                 <Button
@@ -853,9 +933,9 @@ export function ProfileForm({
                       period: "",
                       description: "",
                       tags: [],
-                    })
-                    setEditingExperienceIndex(null)
-                    setIsExperienceDialogOpen(true)
+                    });
+                    setEditingExperienceIndex(null);
+                    setIsExperienceDialogOpen(true);
                   }}
                 >
                   <Plus size={16} className="mr-2" />
@@ -871,27 +951,47 @@ export function ProfileForm({
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="text-lg">{experience.title}</CardTitle>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">{experience.organization}</p>
+                          <CardTitle className="text-lg">
+                            {experience.title}
+                          </CardTitle>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            {experience.organization}
+                          </p>
                         </div>
-                        <p className="text-sm text-gray-500">{experience.period}</p>
+                        <p className="text-sm text-gray-500">
+                          {experience.period}
+                        </p>
                       </div>
                     </CardHeader>
                     <CardContent className="pb-2">
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{experience.description}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        {experience.description}
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {experience.tags.map((tag, tagIndex) => (
-                          <Badge key={tagIndex} variant="outline" className="text-xs">
+                          <Badge
+                            key={tagIndex}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {tag}
                           </Badge>
                         ))}
                       </div>
                     </CardContent>
                     <CardFooter className="flex justify-between pt-0">
-                      <Button variant="ghost" size="sm" onClick={() => handleEditExperience(index)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEditExperience(index)}
+                      >
                         <Edit2 size={14} className="mr-1" /> Edit
                       </Button>
-                      <Button variant="ghost" size="sm" onClick={() => handleDeleteExperience(index)}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteExperience(index)}
+                      >
                         <Trash2 size={14} className="mr-1" /> Delete
                       </Button>
                     </CardFooter>
@@ -900,9 +1000,12 @@ export function ProfileForm({
               </div>
             ) : (
               <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <p className="text-gray-500 dark:text-gray-400">No work experience added yet</p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  No work experience added yet
+                </p>
                 <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
-                  Click "Add Experience" to showcase your professional background
+                  Click "Add Experience" to showcase your professional
+                  background
                 </p>
               </div>
             )}
@@ -918,11 +1021,16 @@ export function ProfileForm({
                 <Switch
                   id="showEducation"
                   checked={profileData.showEducation}
-                  onCheckedChange={(checked) => handleSwitchChange("showEducation", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showEducation", checked)
+                  }
                 />
               </div>
             </div>
-            <EducationForm profileData={profileData} setProfileData={setProfileData} />
+            <EducationForm
+              profileData={profileData}
+              setProfileData={setProfileData}
+            />
           </div>
         </TabsContent>
 
@@ -931,28 +1039,48 @@ export function ProfileForm({
         {/* Settings Tab */}
         <TabsContent value="settings" className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Template Customization</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              Template Customization
+            </h3>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="template-select">Choose a Template</Label>
-                <Select value={activeTemplate} onValueChange={handleTemplateChange}>
+                <Select
+                  value={activeTemplate}
+                  onValueChange={handleTemplateChange}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a template" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="modern">Modern - Clean and professional</SelectItem>
-                    <SelectItem value="minimal">Minimal - Simple and elegant</SelectItem>
-                    <SelectItem value="creative">Creative - Eye-catching and unique</SelectItem>
-                    <SelectItem value="developer">Developer - Code-focused and technical</SelectItem>
-                    <SelectItem value="professional">Professional - Business-oriented and polished</SelectItem>
-                    <SelectItem value="elegant">Elegant - Sophisticated and refined</SelectItem>
+                    <SelectItem value="modern">
+                      Modern - Clean and professional
+                    </SelectItem>
+                    <SelectItem value="minimal">
+                      Minimal - Simple and elegant
+                    </SelectItem>
+                    <SelectItem value="creative">
+                      Creative - Eye-catching and unique
+                    </SelectItem>
+                    <SelectItem value="developer">
+                      Developer - Code-focused and technical
+                    </SelectItem>
+                    <SelectItem value="professional">
+                      Professional - Business-oriented and polished
+                    </SelectItem>
+                    <SelectItem value="elegant">
+                      Elegant - Sophisticated and refined
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label>Color Theme</Label>
-                <ColorPicker colors={profileData.colors} onChange={handleColorChange} />
+                <ColorPicker
+                  colors={profileData.colors}
+                  onChange={handleColorChange}
+                />
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Customize the colors used in your profile README template
                 </p>
@@ -960,16 +1088,23 @@ export function ProfileForm({
 
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
                 <p className="font-medium mb-1">
-                  Selected Template: {activeTemplate.charAt(0).toUpperCase() + activeTemplate.slice(1)}
+                  Selected Template:{" "}
+                  {activeTemplate.charAt(0).toUpperCase() +
+                    activeTemplate.slice(1)}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {activeTemplate === "modern" && "Clean and professional layout with a focus on readability"}
-                  {activeTemplate === "minimal" && "Simple and elegant design with minimalist aesthetics"}
-                  {activeTemplate === "creative" && "Eye-catching and unique style with colorful elements"}
+                  {activeTemplate === "modern" &&
+                    "Clean and professional layout with a focus on readability"}
+                  {activeTemplate === "minimal" &&
+                    "Simple and elegant design with minimalist aesthetics"}
+                  {activeTemplate === "creative" &&
+                    "Eye-catching and unique style with colorful elements"}
                   {activeTemplate === "developer" &&
                     "Code-focused design with technical elements and syntax highlighting"}
-                  {activeTemplate === "professional" && "Business-oriented layout with a corporate, polished feel"}
-                  {activeTemplate === "elegant" && "Sophisticated and refined design with subtle, tasteful elements"}
+                  {activeTemplate === "professional" &&
+                    "Business-oriented layout with a corporate, polished feel"}
+                  {activeTemplate === "elegant" &&
+                    "Sophisticated and refined design with subtle, tasteful elements"}
                 </p>
               </div>
             </div>
@@ -978,89 +1113,119 @@ export function ProfileForm({
           <Separator />
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">GitHub Stats & Widgets</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              GitHub Stats & Widgets
+            </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="stats">GitHub Stats</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your GitHub statistics</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your GitHub statistics
+                  </p>
                 </div>
                 <Switch
                   id="stats"
                   checked={profileData.stats}
-                  onCheckedChange={(checked) => handleSwitchChange("stats", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("stats", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="streak">GitHub Streak</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your GitHub streak statistics</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your GitHub streak statistics
+                  </p>
                 </div>
                 <Switch
                   id="streak"
                   checked={profileData.streak}
-                  onCheckedChange={(checked) => handleSwitchChange("streak", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("streak", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="topLangs">Top Languages</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your most used programming languages</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your most used programming languages
+                  </p>
                 </div>
                 <Switch
                   id="topLangs"
                   checked={profileData.topLangs}
-                  onCheckedChange={(checked) => handleSwitchChange("topLangs", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("topLangs", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="visitors">Profile Visitors</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show profile visitor count</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show profile visitor count
+                  </p>
                 </div>
                 <Switch
                   id="visitors"
                   checked={profileData.visitors}
-                  onCheckedChange={(checked) => handleSwitchChange("visitors", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("visitors", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showRepos">Featured Repositories</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your pinned repositories</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your pinned repositories
+                  </p>
                 </div>
                 <Switch
                   id="showRepos"
                   checked={profileData.showRepos}
-                  onCheckedChange={(checked) => handleSwitchChange("showRepos", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showRepos", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showContribGraph">Contribution Graph</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your GitHub contribution graph</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your GitHub contribution graph
+                  </p>
                 </div>
                 <Switch
                   id="showContribGraph"
                   checked={profileData.showContribGraph}
-                  onCheckedChange={(checked) => handleSwitchChange("showContribGraph", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showContribGraph", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showTrophies">Achievement Trophies</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your GitHub achievement trophies</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your GitHub achievement trophies
+                  </p>
                 </div>
                 <Switch
                   id="showTrophies"
                   checked={profileData.showTrophies}
-                  onCheckedChange={(checked) => handleSwitchChange("showTrophies", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showTrophies", checked)
+                  }
                 />
               </div>
             </div>
@@ -1069,14 +1234,16 @@ export function ProfileForm({
           <Separator />
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Repository Card Customization</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              Repository Card Customization
+            </h3>
             <RepositoryCustomizer
               repoSettings={profileData.repoSettings || defaultRepoSettings}
               setRepoSettings={(settings) => {
                 setProfileData({
                   ...profileData,
                   repoSettings: settings,
-                })
+                });
               }}
             />
           </div>
@@ -1089,60 +1256,80 @@ export function ProfileForm({
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showProjects">Projects Section</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your projects showcase</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your projects showcase
+                  </p>
                 </div>
                 <Switch
                   id="showProjects"
                   checked={profileData.showProjects}
-                  onCheckedChange={(checked) => handleSwitchChange("showProjects", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showProjects", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showBlog">Blog Posts</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your latest blog posts</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your latest blog posts
+                  </p>
                 </div>
                 <Switch
                   id="showBlog"
                   checked={profileData.showBlog}
-                  onCheckedChange={(checked) => handleSwitchChange("showBlog", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showBlog", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showTimeline">Work Experience</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your professional timeline</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your professional timeline
+                  </p>
                 </div>
                 <Switch
                   id="showTimeline"
                   checked={profileData.showTimeline}
-                  onCheckedChange={(checked) => handleSwitchChange("showTimeline", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showTimeline", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showEducation">Education</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show your educational background</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show your educational background
+                  </p>
                 </div>
                 <Switch
                   id="showEducation"
                   checked={profileData.showEducation}
-                  onCheckedChange={(checked) => handleSwitchChange("showEducation", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showEducation", checked)
+                  }
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="showContact">Contact Information</Label>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Show contact section</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Show contact section
+                  </p>
                 </div>
                 <Switch
                   id="showContact"
                   checked={profileData.showContact}
-                  onCheckedChange={(checked) => handleSwitchChange("showContact", checked)}
+                  onCheckedChange={(checked) =>
+                    handleSwitchChange("showContact", checked)
+                  }
                 />
               </div>
             </div>
@@ -1154,8 +1341,14 @@ export function ProfileForm({
       <Dialog open={isProjectDialogOpen} onOpenChange={setIsProjectDialogOpen}>
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingProjectIndex !== null ? "Edit Project" : "Add New Project"}</DialogTitle>
-            <DialogDescription>Add details about your project to showcase in your GitHub profile.</DialogDescription>
+            <DialogTitle>
+              {editingProjectIndex !== null
+                ? "Edit Project"
+                : "Add New Project"}
+            </DialogTitle>
+            <DialogDescription>
+              Add details about your project to showcase in your GitHub profile.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
@@ -1191,7 +1384,9 @@ export function ProfileForm({
                 onChange={handleProjectInputChange}
                 placeholder="e.g. https://example.com/image.jpg"
               />
-              <p className="text-xs text-gray-500">Leave as is for a placeholder image</p>
+              <p className="text-xs text-gray-500">
+                Leave as is for a placeholder image
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1234,7 +1429,11 @@ export function ProfileForm({
 
               <div className="flex flex-wrap gap-2 mt-2">
                 {newProject.technologies.map((tech, index) => (
-                  <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="flex items-center gap-1 px-3 py-1"
+                  >
                     {tech}
                     <button
                       onClick={() => handleRemoveProjectSkill(tech)}
@@ -1246,7 +1445,9 @@ export function ProfileForm({
                   </Badge>
                 ))}
                 {newProject.technologies.length === 0 && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No technologies added yet</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    No technologies added yet
+                  </p>
                 )}
               </div>
             </div>
@@ -1261,12 +1462,20 @@ export function ProfileForm({
       </Dialog>
 
       {/* Experience Dialog */}
-      <Dialog open={isExperienceDialogOpen} onOpenChange={setIsExperienceDialogOpen}>
+      <Dialog
+        open={isExperienceDialogOpen}
+        onOpenChange={setIsExperienceDialogOpen}
+      >
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingExperienceIndex !== null ? "Edit Experience" : "Add Work Experience"}</DialogTitle>
+            <DialogTitle>
+              {editingExperienceIndex !== null
+                ? "Edit Experience"
+                : "Add Work Experience"}
+            </DialogTitle>
             <DialogDescription>
-              Add details about your work experience to showcase in your GitHub profile.
+              Add details about your work experience to showcase in your GitHub
+              profile.
             </DialogDescription>
           </DialogHeader>
 
@@ -1283,7 +1492,9 @@ export function ProfileForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="experience-organization">Company/Organization</Label>
+              <Label htmlFor="experience-organization">
+                Company/Organization
+              </Label>
               <Input
                 id="experience-organization"
                 name="organization"
@@ -1332,7 +1543,11 @@ export function ProfileForm({
 
               <div className="flex flex-wrap gap-2 mt-2">
                 {newExperience.tags.map((tag, index) => (
-                  <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="flex items-center gap-1 px-3 py-1"
+                  >
                     {tag}
                     <button
                       onClick={() => handleRemoveExperienceTag(tag)}
@@ -1344,7 +1559,9 @@ export function ProfileForm({
                   </Badge>
                 ))}
                 {newExperience.tags.length === 0 && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No skills/technologies added yet</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    No skills/technologies added yet
+                  </p>
                 )}
               </div>
             </div>
@@ -1352,7 +1569,9 @@ export function ProfileForm({
 
           <DialogFooter>
             <Button onClick={handleAddExperience}>
-              {editingExperienceIndex !== null ? "Update Experience" : "Add Experience"}
+              {editingExperienceIndex !== null
+                ? "Update Experience"
+                : "Add Experience"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1363,7 +1582,9 @@ export function ProfileForm({
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add Social Link</DialogTitle>
-            <DialogDescription>Add a custom social media or website link to your profile.</DialogDescription>
+            <DialogDescription>
+              Add a custom social media or website link to your profile.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
@@ -1396,5 +1617,5 @@ export function ProfileForm({
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

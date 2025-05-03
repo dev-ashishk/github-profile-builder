@@ -1,24 +1,25 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Github, Star, GitFork, Code, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { motion } from "framer-motion";
+import { Github, Star, GitFork, Code, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function HeroSection() {
-  const [stars, setStars] = useState(0)
-  const [forks, setForks] = useState(0)
+  const [stars, setStars] = useState(0);
+  const [forks, setForks] = useState(0);
 
   // Simulate fetching GitHub stats
   useEffect(() => {
     const timer = setTimeout(() => {
-      setStars(Math.floor(Math.random() * 500) + 100)
-      setForks(Math.floor(Math.random() * 100) + 20)
-    }, 1000)
+      setStars(Math.floor(Math.random() * 500) + 100);
+      setForks(Math.floor(Math.random() * 100) + 20);
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 py-12 md:py-20">
@@ -63,7 +64,8 @@ export function HeroSection() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8"
           >
-            Create an impressive GitHub profile page in minutes with our interactive builder
+            Create an impressive GitHub profile page in minutes with our
+            interactive builder
           </motion.p>
 
           <motion.div
@@ -77,7 +79,11 @@ export function HeroSection() {
               Get Started
             </Button>
             <Button size="lg" variant="outline" className="gap-2" asChild>
-              <a href="https://github.com/dev-ashishk/github-profile-builder" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/dev-ashishk/github-profile-builder"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Github size={18} />
                 View on GitHub
               </a>
@@ -125,5 +131,5 @@ export function HeroSection() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

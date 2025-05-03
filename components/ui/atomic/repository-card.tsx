@@ -1,24 +1,25 @@
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
-import { Star, GitFork } from "lucide-react"
+import { Star, GitFork } from "lucide-react";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface Repository {
-  name: string
-  description: string
-  url: string
-  stars: number
-  forks: number
-  language: string
-  languageColor?: string
+  name: string;
+  description: string;
+  url: string;
+  stars: number;
+  forks: number;
+  language: string;
+  languageColor?: string;
 }
 
 interface RepositoryCardProps {
-  repository: Repository
-  className?: string
-  showDescription?: boolean
-  showLanguage?: boolean
-  showStats?: boolean
-  style?: string
+  repository: Repository;
+  className?: string;
+  showDescription?: boolean;
+  showLanguage?: boolean;
+  showStats?: boolean;
+  style?: string;
 }
 
 export function RepositoryCard({
@@ -55,7 +56,9 @@ export function RepositoryCard({
               <div className="flex items-center mr-4">
                 <span
                   className="w-3 h-3 rounded-full mr-1"
-                  style={{ backgroundColor: repository.languageColor || "#ccc" }}
+                  style={{
+                    backgroundColor: repository.languageColor || "#ccc",
+                  }}
                 ></span>
                 <span className="text-xs">{repository.language}</span>
               </div>
@@ -77,18 +80,18 @@ export function RepositoryCard({
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
 interface RepositoriesGridProps {
-  repositories: Repository[]
-  title?: string
-  primaryColor?: string
-  gridColumns?: number
-  cardStyle?: string
-  showDescription?: boolean
-  showLanguage?: boolean
-  showStats?: boolean
+  repositories: Repository[];
+  title?: string;
+  primaryColor?: string;
+  gridColumns?: number;
+  cardStyle?: string;
+  showDescription?: boolean;
+  showLanguage?: boolean;
+  showStats?: boolean;
 }
 
 export function RepositoriesGrid({
@@ -101,7 +104,7 @@ export function RepositoriesGrid({
   showLanguage = true,
   showStats = true,
 }: RepositoriesGridProps) {
-  if (!repositories || repositories.length === 0) return null
+  if (!repositories || repositories.length === 0) return null;
 
   return (
     <Section>
@@ -121,5 +124,5 @@ export function RepositoriesGrid({
         ))}
       </div>
     </Section>
-  )
+  );
 }

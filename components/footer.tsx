@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Heart } from "lucide-react"
+import { Github, Twitter, Linkedin, Heart } from "lucide-react";
 
 export function Footer() {
   return (
@@ -6,9 +6,12 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-xl font-bold mb-4">GitHub Profile README Builder</h3>
+            <h3 className="text-xl font-bold mb-4">
+              GitHub Profile README Builder
+            </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Create beautiful, customizable GitHub profile READMEs with ease. No coding required!
+              Create beautiful, customizable GitHub profile READMEs with ease.
+              No coding required!
             </p>
             <div className="flex space-x-4">
               <a
@@ -112,7 +115,8 @@ export function Footer() {
 
         <div className="border-t border-gray-200 dark:border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-600 dark:text-gray-400 flex items-center justify-center">
-            Made with <Heart size={16} className="mx-1 text-red-500 fill-red-500" /> by
+            Made with{" "}
+            <Heart size={16} className="mx-1 text-red-500 fill-red-500" /> by
             <a
               href="https://github.com/dev-ashishk"
               target="_blank"
@@ -123,10 +127,11 @@ export function Footer() {
             </a>
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-            © {new Date().getFullYear()} GitHub Profile README Builder. All rights reserved.
+            © {new Date().getFullYear()} GitHub Profile README Builder. All
+            rights reserved.
           </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

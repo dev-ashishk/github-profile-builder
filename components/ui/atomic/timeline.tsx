@@ -1,24 +1,30 @@
-import type React from "react"
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
+import type React from "react";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface TimelineItem {
-  title: string
-  organization?: string
-  period: string
-  description?: string
-  tags?: string[]
-  icon?: React.ReactNode
+  title: string;
+  organization?: string;
+  period: string;
+  description?: string;
+  tags?: string[];
+  icon?: React.ReactNode;
 }
 
 interface TimelineItemProps {
-  item: TimelineItem
-  isLast: boolean
-  primaryColor?: string
-  secondaryColor?: string
+  item: TimelineItem;
+  isLast: boolean;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
-export function TimelineItemComponent({ item, isLast, primaryColor, secondaryColor }: TimelineItemProps) {
+export function TimelineItemComponent({
+  item,
+  isLast,
+  primaryColor,
+  secondaryColor,
+}: TimelineItemProps) {
   return (
     <div className="relative pl-8 pb-8">
       {/* Timeline line */}
@@ -39,14 +45,25 @@ export function TimelineItemComponent({ item, isLast, primaryColor, secondaryCol
 
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
-          <h3 className="text-base font-semibold" style={{ color: primaryColor }}>
+          <h3
+            className="text-base font-semibold"
+            style={{ color: primaryColor }}
+          >
             {item.title}
-            {item.organization && <span className="font-normal"> • {item.organization}</span>}
+            {item.organization && (
+              <span className="font-normal"> • {item.organization}</span>
+            )}
           </h3>
-          <span className="text-sm text-gray-500 dark:text-gray-400">{item.period}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            {item.period}
+          </span>
         </div>
 
-        {item.description && <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{item.description}</p>}
+        {item.description && (
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+            {item.description}
+          </p>
+        )}
 
         {item.tags && item.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -66,19 +83,25 @@ export function TimelineItemComponent({ item, isLast, primaryColor, secondaryCol
         )}
       </div>
     </div>
-  )
+  );
 }
 
 interface TimelineProps {
-  items: TimelineItem[]
-  title?: string
-  className?: string
-  primaryColor?: string
-  secondaryColor?: string
+  items: TimelineItem[];
+  title?: string;
+  className?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
-export function Timeline({ items, title = "Experience", className, primaryColor, secondaryColor }: TimelineProps) {
-  if (!items || items.length === 0) return null
+export function Timeline({
+  items,
+  title = "Experience",
+  className,
+  primaryColor,
+  secondaryColor,
+}: TimelineProps) {
+  if (!items || items.length === 0) return null;
 
   return (
     <Section className={className}>
@@ -97,5 +120,5 @@ export function Timeline({ items, title = "Experience", className, primaryColor,
         ))}
       </Container>
     </Section>
-  )
+  );
 }

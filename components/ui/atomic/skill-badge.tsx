@@ -1,14 +1,15 @@
-import type React from "react"
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
+import type React from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface SkillBadgeProps {
-  skill: string
-  className?: string
-  variant?: "default" | "outline" | "secondary" | "destructive"
-  color?: string
-  backgroundColor?: string
-  borderColor?: string
+  skill: string;
+  className?: string;
+  variant?: "default" | "outline" | "secondary" | "destructive";
+  color?: string;
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
 export function SkillBadge({
@@ -23,22 +24,30 @@ export function SkillBadge({
     color: color || undefined,
     backgroundColor: backgroundColor || undefined,
     borderColor: borderColor || undefined,
-  }
+  };
 
   return (
-    <Badge variant={variant} className={cn("px-3 py-1", className)} style={styles}>
+    <Badge
+      variant={variant}
+      className={cn("px-3 py-1", className)}
+      style={styles}
+    >
       {skill}
     </Badge>
-  )
+  );
 }
 
 interface SkillsContainerProps {
-  children: React.ReactNode
-  className?: string
-  centered?: boolean
+  children: React.ReactNode;
+  className?: string;
+  centered?: boolean;
 }
 
-export function SkillsContainer({ children, className, centered = false }: SkillsContainerProps) {
+export function SkillsContainer({
+  children,
+  className,
+  centered = false,
+}: SkillsContainerProps) {
   return (
     <div
       className={cn(
@@ -46,10 +55,10 @@ export function SkillsContainer({ children, className, centered = false }: Skill
         {
           "justify-center": centered,
         },
-        className,
+        className
       )}
     >
       {children}
     </div>
-  )
+  );
 }

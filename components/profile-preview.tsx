@@ -1,50 +1,68 @@
-"use client"
-import { Avatar } from "@/components/ui/atomic/avatar"
-import { Container } from "@/components/ui/atomic/container"
-import { ProgressBar } from "@/components/ui/atomic/progress-bar"
-import { Section, SectionHeading } from "@/components/ui/atomic/section"
-import { SkillBadge, SkillsContainer } from "@/components/ui/atomic/skill-badge"
-import { SocialLink, SocialLinksContainer } from "@/components/ui/atomic/social-link"
-import { StatCard, StatsGrid } from "@/components/ui/atomic/stat-card"
-import { MapPin, Building, Globe } from "lucide-react"
-import { GitHubTrophies, GitHubContributionGraph } from "@/components/ui/atomic/github-stats"
-import { RepositoriesGrid } from "@/components/ui/atomic/repository-card"
-import { ProjectShowcase } from "@/components/ui/atomic/project-showcase"
-import { BlogPreview } from "@/components/ui/atomic/blog-preview"
-import { Timeline } from "@/components/ui/atomic/timeline"
-import { EducationSection } from "@/components/ui/atomic/education-section"
-import { ContactSection } from "@/components/ui/atomic/contact-section"
+"use client";
+import { MapPin, Building, Globe } from "lucide-react";
+
+import { Avatar } from "@/components/ui/atomic/avatar";
+import { Container } from "@/components/ui/atomic/container";
+import { ProgressBar } from "@/components/ui/atomic/progress-bar";
+import { Section, SectionHeading } from "@/components/ui/atomic/section";
+import {
+  SkillBadge,
+  SkillsContainer,
+} from "@/components/ui/atomic/skill-badge";
+import {
+  SocialLink,
+  SocialLinksContainer,
+} from "@/components/ui/atomic/social-link";
+import { StatCard, StatsGrid } from "@/components/ui/atomic/stat-card";
+import {
+  GitHubTrophies,
+  GitHubContributionGraph,
+} from "@/components/ui/atomic/github-stats";
+import { RepositoriesGrid } from "@/components/ui/atomic/repository-card";
+import { ProjectShowcase } from "@/components/ui/atomic/project-showcase";
+import { BlogPreview } from "@/components/ui/atomic/blog-preview";
+import { Timeline } from "@/components/ui/atomic/timeline";
+import { EducationSection } from "@/components/ui/atomic/education-section";
+import { ContactSection } from "@/components/ui/atomic/contact-section";
 
 export function ProfilePreview({ profileData, template }) {
   if (template === "modern") {
-    return <ModernTemplate data={profileData} />
+    return <ModernTemplate data={profileData} />;
   } else if (template === "minimal") {
-    return <MinimalTemplate data={profileData} />
+    return <MinimalTemplate data={profileData} />;
   } else if (template === "creative") {
-    return <CreativeTemplate data={profileData} />
+    return <CreativeTemplate data={profileData} />;
   } else if (template === "developer") {
-    return <DeveloperTemplate data={profileData} />
+    return <DeveloperTemplate data={profileData} />;
   } else if (template === "professional") {
-    return <ProfessionalTemplate data={profileData} />
+    return <ProfessionalTemplate data={profileData} />;
   } else if (template === "elegant") {
-    return <ElegantTemplate data={profileData} />
+    return <ElegantTemplate data={profileData} />;
   }
 
-  return <ModernTemplate data={profileData} />
+  return <ModernTemplate data={profileData} />;
 }
 
 function ModernTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview font-sans">
       <Section>
         <SectionHeading level={1}>Hi there, I'm {data.name} 👋</SectionHeading>
-        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">{data.title}</h2>
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          {data.title}
+        </h2>
 
         <div className="flex items-center mb-4">
           <div className="mr-4">
-            <Avatar src={data.avatarUrl} alt={data.name} size={100} border borderColor="gray" />
+            <Avatar
+              src={data.avatarUrl}
+              alt={data.name}
+              size={100}
+              border
+              borderColor="gray"
+            />
           </div>
           <p className="flex-1">{data.about}</p>
         </div>
@@ -67,7 +85,10 @@ function ModernTemplate({ data }) {
               <Globe size={16} className="mr-1 text-gray-500" />
               <span>
                 Check out my website{" "}
-                <a href={data.website} className="text-blue-500 hover:underline">
+                <a
+                  href={data.website}
+                  className="text-blue-500 hover:underline"
+                >
                   {data.website.replace(/^https?:\/\//, "")}
                 </a>
               </span>
@@ -79,10 +100,30 @@ function ModernTemplate({ data }) {
       <Section>
         <SectionHeading level={3}>Connect with me:</SectionHeading>
         <SocialLinksContainer>
-          {data.github && <SocialLink platform="github" username={data.github} />}
-          {data.twitter && <SocialLink platform="twitter" username={data.twitter} color={colors.primary} />}
-          {data.linkedin && <SocialLink platform="linkedin" username={data.linkedin} color={colors.secondary} />}
-          {data.website && <SocialLink platform="website" url={data.website} color={colors.accent} />}
+          {data.github && (
+            <SocialLink platform="github" username={data.github} />
+          )}
+          {data.twitter && (
+            <SocialLink
+              platform="twitter"
+              username={data.twitter}
+              color={colors.primary}
+            />
+          )}
+          {data.linkedin && (
+            <SocialLink
+              platform="linkedin"
+              username={data.linkedin}
+              color={colors.secondary}
+            />
+          )}
+          {data.website && (
+            <SocialLink
+              platform="website"
+              url={data.website}
+              color={colors.accent}
+            />
+          )}
         </SocialLinksContainer>
       </Section>
 
@@ -90,7 +131,12 @@ function ModernTemplate({ data }) {
         <SectionHeading level={3}>Languages and Tools:</SectionHeading>
         <SkillsContainer>
           {data.skills.map((skill, index) => (
-            <SkillBadge key={index} skill={skill} backgroundColor={`${colors.accent}20`} color={colors.accent} />
+            <SkillBadge
+              key={index}
+              skill={skill}
+              backgroundColor={`${colors.accent}20`}
+              color={colors.accent}
+            />
           ))}
         </SkillsContainer>
       </Section>
@@ -128,7 +174,9 @@ function ModernTemplate({ data }) {
               </div>
             ) : (
               <div className="text-center text-gray-500">
-                {data.github ? "Click 'Fetch Data' to load GitHub stats" : "Enter GitHub username to see stats"}
+                {data.github
+                  ? "Click 'Fetch Data' to load GitHub stats"
+                  : "Enter GitHub username to see stats"}
               </div>
             )}
           </Container>
@@ -155,7 +203,9 @@ function ModernTemplate({ data }) {
               </div>
             ) : (
               <div className="text-center text-gray-500">
-                {data.github ? "Click 'Fetch Data' to load language stats" : "Enter GitHub username to see languages"}
+                {data.github
+                  ? "Click 'Fetch Data' to load language stats"
+                  : "Enter GitHub username to see languages"}
               </div>
             )}
           </Container>
@@ -174,27 +224,41 @@ function ModernTemplate({ data }) {
                 </div>
                 <div className="flex justify-between">
                   <span>Longest Streak:</span>
-                  <span className="font-bold">{data.longestStreak || 0} days</span>
+                  <span className="font-bold">
+                    {data.longestStreak || 0} days
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total Contributions:</span>
-                  <span className="font-bold">{data.totalContributions || 0} days</span>
+                  <span className="font-bold">
+                    {data.totalContributions || 0} days
+                  </span>
                 </div>
               </div>
             ) : (
               <div className="text-center text-gray-500">
-                {data.github ? "Click 'Fetch Data' to load streak stats" : "Enter GitHub username to see streak"}
+                {data.github
+                  ? "Click 'Fetch Data' to load streak stats"
+                  : "Enter GitHub username to see streak"}
               </div>
             )}
           </Container>
         </Section>
       )}
 
-      {data.visitors && <div className="text-sm text-gray-500 mt-4">Profile views: {data.profileViews || "1,234"}</div>}
+      {data.visitors && (
+        <div className="text-sm text-gray-500 mt-4">
+          Profile views: {data.profileViews || "1,234"}
+        </div>
+      )}
       {data.showRepos && data.repositories && data.repositories.length > 0 && (
         <Section>
           <SectionHeading level={3}>Featured Repositories:</SectionHeading>
-          <RepositoriesGrid repositories={data.repositories} title="" primaryColor={data.colors.primary} />
+          <RepositoriesGrid
+            repositories={data.repositories}
+            title=""
+            primaryColor={data.colors.primary}
+          />
         </Section>
       )}
 
@@ -207,18 +271,18 @@ function ModernTemplate({ data }) {
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -240,11 +304,18 @@ function ModernTemplate({ data }) {
       )}
 
       {data.showBlog && data.blogPosts && data.blogPosts.length > 0 && (
-        <BlogPreview posts={data.blogPosts} primaryColor={data.colors.primary} />
+        <BlogPreview
+          posts={data.blogPosts}
+          primaryColor={data.colors.primary}
+        />
       )}
 
       {data.showTimeline && data.timeline && data.timeline.length > 0 && (
-        <Timeline items={data.timeline} primaryColor={data.colors.primary} secondaryColor={data.colors.secondary} />
+        <Timeline
+          items={data.timeline}
+          primaryColor={data.colors.primary}
+          secondaryColor={data.colors.secondary}
+        />
       )}
 
       {data.showEducation && data.education && data.education.length > 0 && (
@@ -264,11 +335,11 @@ function ModernTemplate({ data }) {
         />
       )}
     </div>
-  )
+  );
 }
 
 function MinimalTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview font-mono">
@@ -277,7 +348,9 @@ function MinimalTemplate({ data }) {
           <Avatar src={data.avatarUrl} alt={data.name} size={80} rounded="md" />
           <div>
             <h1 className="text-2xl font-bold mb-1">{data.name}</h1>
-            <p className="text-gray-600 dark:text-gray-400">&gt; {data.title}</p>
+            <p className="text-gray-600 dark:text-gray-400">
+              &gt; {data.title}
+            </p>
           </div>
         </div>
 
@@ -288,12 +361,24 @@ function MinimalTemplate({ data }) {
         <Section>
           <SectionHeading level={2}>About</SectionHeading>
           <ul className="list-disc list-inside mb-4 space-y-1">
-            {data.location && <li className="text-gray-700 dark:text-gray-300">📍 {data.location}</li>}
-            {data.company && <li className="text-gray-700 dark:text-gray-300">💼 {data.company}</li>}
+            {data.location && (
+              <li className="text-gray-700 dark:text-gray-300">
+                📍 {data.location}
+              </li>
+            )}
+            {data.company && (
+              <li className="text-gray-700 dark:text-gray-300">
+                💼 {data.company}
+              </li>
+            )}
             {data.website && (
               <li className="text-gray-700 dark:text-gray-300">
                 🔗{" "}
-                <a href={data.website} style={{ color: colors.primary }} className="hover:underline">
+                <a
+                  href={data.website}
+                  style={{ color: colors.primary }}
+                  className="hover:underline"
+                >
                   {data.website.replace(/^https?:\/\//, "")}
                 </a>
               </li>
@@ -376,7 +461,9 @@ contributions: ${data.totalContributions || 0}`}
                 .slice(0, 5)
                 .map(
                   ([lang, percentage]) =>
-                    `${lang}: ${"█".repeat(Math.floor((percentage as number) / 5))} ${percentage}%`,
+                    `${lang}: ${"█".repeat(
+                      Math.floor((percentage as number) / 5)
+                    )} ${percentage}%`
                 )
                 .join("\n")}
             </pre>
@@ -408,18 +495,18 @@ contributions: ${data.totalContributions || 0}`}
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -432,17 +519,19 @@ contributions: ${data.totalContributions || 0}`}
         </Section>
       )}
     </div>
-  )
+  );
 }
 
 function CreativeTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview text-center">
       <div
         className="h-16 rounded-t-lg mb-8 relative"
-        style={{ background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary}, ${colors.accent})` }}
+        style={{
+          background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary}, ${colors.accent})`,
+        }}
       >
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-900 rounded-full p-1">
           <Avatar src={data.avatarUrl} alt={data.name} size={64} />
@@ -451,12 +540,18 @@ function CreativeTemplate({ data }) {
 
       <Section className="mt-10">
         <SectionHeading level={1}>{data.name}</SectionHeading>
-        <h2 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-4">👨‍💻 {data.title}</h2>
+        <h2 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-4">
+          👨‍💻 {data.title}
+        </h2>
         <p className="mb-6 max-w-2xl mx-auto">{data.about}</p>
 
         <div className="flex flex-wrap justify-center gap-3 mb-6">
-          {data.location && <SkillBadge skill={`🌏 ${data.location}`} variant="outline" />}
-          {data.company && <SkillBadge skill={`🏢 ${data.company}`} variant="outline" />}
+          {data.location && (
+            <SkillBadge skill={`🌏 ${data.location}`} variant="outline" />
+          )}
+          {data.company && (
+            <SkillBadge skill={`🏢 ${data.company}`} variant="outline" />
+          )}
           {data.website && (
             <SkillBadge
               skill={
@@ -476,9 +571,23 @@ function CreativeTemplate({ data }) {
       <Section>
         <SectionHeading level={3}>🔗 Connect with me</SectionHeading>
         <SocialLinksContainer centered>
-          {data.github && <SocialLink platform="github" username={data.github} />}
-          {data.twitter && <SocialLink platform="twitter" username={data.twitter} color={colors.primary} />}
-          {data.linkedin && <SocialLink platform="linkedin" username={data.linkedin} color={colors.secondary} />}
+          {data.github && (
+            <SocialLink platform="github" username={data.github} />
+          )}
+          {data.twitter && (
+            <SocialLink
+              platform="twitter"
+              username={data.twitter}
+              color={colors.primary}
+            />
+          )}
+          {data.linkedin && (
+            <SocialLink
+              platform="linkedin"
+              username={data.linkedin}
+              color={colors.secondary}
+            />
+          )}
         </SocialLinksContainer>
       </Section>
 
@@ -486,7 +595,13 @@ function CreativeTemplate({ data }) {
         <SectionHeading level={3}>💻 Tech Stack</SectionHeading>
         <SkillsContainer centered>
           {data.skills.map((skill, index) => (
-            <SkillBadge key={index} skill={skill} variant="outline" borderColor={colors.accent} color={colors.accent} />
+            <SkillBadge
+              key={index}
+              skill={skill}
+              variant="outline"
+              borderColor={colors.accent}
+              color={colors.accent}
+            />
           ))}
         </SkillsContainer>
       </Section>
@@ -500,13 +615,18 @@ function CreativeTemplate({ data }) {
                 <StatCard value={data.publicRepos || 0} label="Repositories" />
                 <StatCard value={data.followers || 0} label="Followers" />
                 <StatCard value={data.totalStars || 0} label="Stars" />
-                <StatCard value={data.totalContributions || 0} label="Contributions" />
+                <StatCard
+                  value={data.totalContributions || 0}
+                  label="Contributions"
+                />
               </StatsGrid>
             </Container>
           ) : (
             <Container className="max-w-md mx-auto">
               <div className="text-center text-gray-500">
-                {data.github ? "Click 'Fetch Data' to load GitHub stats" : "Enter GitHub username to see stats"}
+                {data.github
+                  ? "Click 'Fetch Data' to load GitHub stats"
+                  : "Enter GitHub username to see stats"}
               </div>
             </Container>
           )}
@@ -539,9 +659,18 @@ function CreativeTemplate({ data }) {
           <SectionHeading level={3}>🔥 GitHub Streak</SectionHeading>
           <Container className="max-w-md mx-auto">
             <StatsGrid columns={3}>
-              <StatCard value={data.currentStreak || 0} label="Current Streak" />
-              <StatCard value={data.longestStreak || 0} label="Longest Streak" />
-              <StatCard value={data.totalContributions || 0} label="Contributions" />
+              <StatCard
+                value={data.currentStreak || 0}
+                label="Current Streak"
+              />
+              <StatCard
+                value={data.longestStreak || 0}
+                label="Longest Streak"
+              />
+              <StatCard
+                value={data.totalContributions || 0}
+                label="Contributions"
+              />
             </StatsGrid>
           </Container>
         </Section>
@@ -558,7 +687,9 @@ function CreativeTemplate({ data }) {
 
       <div
         className="h-4 rounded-b-lg mt-6"
-        style={{ background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary}, ${colors.accent})` }}
+        style={{
+          background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary}, ${colors.accent})`,
+        }}
       ></div>
       {data.showRepos && data.repositories && data.repositories.length > 0 && (
         <Section>
@@ -585,18 +716,18 @@ function CreativeTemplate({ data }) {
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -609,11 +740,11 @@ function CreativeTemplate({ data }) {
         </Section>
       )}
     </div>
-  )
+  );
 }
 
 function DeveloperTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview font-mono">
@@ -676,7 +807,10 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
             <code
               key={index}
               className="px-2 py-1 rounded text-sm"
-              style={{ backgroundColor: `${colors.primary}20`, color: colors.primary }}
+              style={{
+                backgroundColor: `${colors.primary}20`,
+                color: colors.primary,
+              }}
             >
               {skill}
             </code>
@@ -694,7 +828,10 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
               <StatCard value={data.publicRepos || 0} label="Repositories" />
               <StatCard value={data.followers || 0} label="Followers" />
               <StatCard value={data.totalStars || 0} label="Stars" />
-              <StatCard value={data.totalContributions || 0} label="Contributions" />
+              <StatCard
+                value={data.totalContributions || 0}
+                label="Contributions"
+              />
             </StatsGrid>
           </Container>
         </Section>
@@ -711,7 +848,9 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
                 .slice(0, 5)
                 .map(
                   ([lang, percentage]) =>
-                    `${lang}: ${"█".repeat(Math.floor((percentage as number) / 5))} ${percentage}%`,
+                    `${lang}: ${"█".repeat(
+                      Math.floor((percentage as number) / 5)
+                    )} ${percentage}%`
                 )
                 .join("\n")}
             </pre>
@@ -725,10 +864,30 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
         </SectionHeading>
 
         <SocialLinksContainer>
-          {data.github && <SocialLink platform="github" username={data.github} />}
-          {data.twitter && <SocialLink platform="twitter" username={data.twitter} color={colors.primary} />}
-          {data.linkedin && <SocialLink platform="linkedin" username={data.linkedin} color={colors.secondary} />}
-          {data.website && <SocialLink platform="website" url={data.website} color={colors.accent} />}
+          {data.github && (
+            <SocialLink platform="github" username={data.github} />
+          )}
+          {data.twitter && (
+            <SocialLink
+              platform="twitter"
+              username={data.twitter}
+              color={colors.primary}
+            />
+          )}
+          {data.linkedin && (
+            <SocialLink
+              platform="linkedin"
+              username={data.linkedin}
+              color={colors.secondary}
+            />
+          )}
+          {data.website && (
+            <SocialLink
+              platform="website"
+              url={data.website}
+              color={colors.accent}
+            />
+          )}
         </SocialLinksContainer>
       </Section>
 
@@ -762,18 +921,18 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -786,11 +945,11 @@ const ${data.name.replace(/\s+/g, "")}: Developer = {
         </Section>
       )}
     </div>
-  )
+  );
 }
 
 function ProfessionalTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview font-sans">
@@ -803,7 +962,13 @@ function ProfessionalTemplate({ data }) {
 
       <Section className="flex flex-col md:flex-row gap-6">
         <div className="md:w-1/3">
-          <Avatar src={data.avatarUrl} alt={data.name} size={200} rounded="lg" className="w-full h-auto" />
+          <Avatar
+            src={data.avatarUrl}
+            alt={data.name}
+            size={200}
+            rounded="lg"
+            className="w-full h-auto"
+          />
         </div>
         <div className="md:w-2/3">
           <SectionHeading level={2} color={colors.primary}>
@@ -831,7 +996,11 @@ function ProfessionalTemplate({ data }) {
             {data.website && (
               <li className="flex items-center">
                 <Globe size={16} className="mr-2 text-gray-500" />
-                <a href={data.website} style={{ color: colors.primary }} className="hover:underline">
+                <a
+                  href={data.website}
+                  style={{ color: colors.primary }}
+                  className="hover:underline"
+                >
                   {data.website.replace(/^https?:\/\//, "")}
                 </a>
               </li>
@@ -839,9 +1008,23 @@ function ProfessionalTemplate({ data }) {
           </ul>
 
           <SocialLinksContainer>
-            {data.github && <SocialLink platform="github" username={data.github} />}
-            {data.linkedin && <SocialLink platform="linkedin" username={data.linkedin} color={colors.primary} />}
-            {data.twitter && <SocialLink platform="twitter" username={data.twitter} color={colors.secondary} />}
+            {data.github && (
+              <SocialLink platform="github" username={data.github} />
+            )}
+            {data.linkedin && (
+              <SocialLink
+                platform="linkedin"
+                username={data.linkedin}
+                color={colors.primary}
+              />
+            )}
+            {data.twitter && (
+              <SocialLink
+                platform="twitter"
+                username={data.twitter}
+                color={colors.secondary}
+              />
+            )}
           </SocialLinksContainer>
         </div>
       </Section>
@@ -856,15 +1039,17 @@ function ProfessionalTemplate({ data }) {
               Languages & Frameworks
             </SectionHeading>
             <SkillsContainer>
-              {data.skills.slice(0, Math.ceil(data.skills.length / 2)).map((skill, index) => (
-                <SkillBadge
-                  key={index}
-                  skill={skill}
-                  variant="outline"
-                  borderColor={colors.primary}
-                  color={colors.primary}
-                />
-              ))}
+              {data.skills
+                .slice(0, Math.ceil(data.skills.length / 2))
+                .map((skill, index) => (
+                  <SkillBadge
+                    key={index}
+                    skill={skill}
+                    variant="outline"
+                    borderColor={colors.primary}
+                    color={colors.primary}
+                  />
+                ))}
             </SkillsContainer>
           </div>
           <div>
@@ -872,15 +1057,17 @@ function ProfessionalTemplate({ data }) {
               Tools & Platforms
             </SectionHeading>
             <SkillsContainer>
-              {data.skills.slice(Math.ceil(data.skills.length / 2)).map((skill, index) => (
-                <SkillBadge
-                  key={index}
-                  skill={skill}
-                  variant="outline"
-                  borderColor={colors.secondary}
-                  color={colors.secondary}
-                />
-              ))}
+              {data.skills
+                .slice(Math.ceil(data.skills.length / 2))
+                .map((skill, index) => (
+                  <SkillBadge
+                    key={index}
+                    skill={skill}
+                    variant="outline"
+                    borderColor={colors.secondary}
+                    color={colors.secondary}
+                  />
+                ))}
             </SkillsContainer>
           </div>
         </div>
@@ -895,7 +1082,10 @@ function ProfessionalTemplate({ data }) {
             <StatCard value={data.publicRepos || 0} label="Repositories" />
             <StatCard value={data.followers || 0} label="Followers" />
             <StatCard value={data.totalStars || 0} label="Stars" />
-            <StatCard value={data.totalContributions || 0} label="Contributions" />
+            <StatCard
+              value={data.totalContributions || 0}
+              label="Contributions"
+            />
           </StatsGrid>
         </Section>
       )}
@@ -924,7 +1114,9 @@ function ProfessionalTemplate({ data }) {
       )}
 
       {data.visitors && (
-        <div className="text-center text-sm text-gray-500 mt-8">Profile views: {data.profileViews || "1,234"}</div>
+        <div className="text-center text-sm text-gray-500 mt-8">
+          Profile views: {data.profileViews || "1,234"}
+        </div>
       )}
       {data.showRepos && data.repositories && data.repositories.length > 0 && (
         <Section>
@@ -951,18 +1143,18 @@ function ProfessionalTemplate({ data }) {
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -975,11 +1167,11 @@ function ProfessionalTemplate({ data }) {
         </Section>
       )}
     </div>
-  )
+  );
 }
 
 function ElegantTemplate({ data }) {
-  const { colors } = data
+  const { colors } = data;
 
   return (
     <div className="markdown-preview font-serif">
@@ -987,16 +1179,27 @@ function ElegantTemplate({ data }) {
         <SectionHeading level={1} color={colors.primary}>
           ✨ {data.name} ✨
         </SectionHeading>
-        <p className="text-lg italic text-gray-600 dark:text-gray-400">{data.title}</p>
+        <p className="text-lg italic text-gray-600 dark:text-gray-400">
+          {data.title}
+        </p>
       </Section>
 
-      <blockquote className="border-l-4 pl-4 py-2 mb-6 italic" style={{ borderColor: colors.accent }}>
+      <blockquote
+        className="border-l-4 pl-4 py-2 mb-6 italic"
+        style={{ borderColor: colors.accent }}
+      >
         {data.about}
       </blockquote>
 
       <Section className="flex flex-col md:flex-row gap-6">
         <div className="md:w-1/3">
-          <Avatar src={data.avatarUrl} alt={data.name} size={200} rounded="lg" className="w-full h-auto" />
+          <Avatar
+            src={data.avatarUrl}
+            alt={data.name}
+            size={200}
+            rounded="lg"
+            className="w-full h-auto"
+          />
         </div>
         <div className="md:w-2/3">
           <SectionHeading
@@ -1028,7 +1231,11 @@ function ElegantTemplate({ data }) {
             {data.website && (
               <li className="flex items-center">
                 <Globe size={16} className="mr-2 text-gray-500" />
-                <a href={data.website} style={{ color: colors.primary }} className="hover:underline">
+                <a
+                  href={data.website}
+                  style={{ color: colors.primary }}
+                  className="hover:underline"
+                >
                   {data.website.replace(/^https?:\/\//, "")}
                 </a>
               </li>
@@ -1056,7 +1263,11 @@ function ElegantTemplate({ data }) {
         </SectionHeading>
         <Container className="text-center">
           {data.skills.map((skill, index) => (
-            <span key={index} className="inline-block mx-1" style={{ color: colors.secondary }}>
+            <span
+              key={index}
+              className="inline-block mx-1"
+              style={{ color: colors.secondary }}
+            >
               {skill}
               {index < data.skills.length - 1 ? " • " : ""}
             </span>
@@ -1074,54 +1285,76 @@ function ElegantTemplate({ data }) {
           Connect
         </SectionHeading>
         <SocialLinksContainer centered>
-          {data.github && <SocialLink platform="github" username={data.github} />}
-          {data.linkedin && <SocialLink platform="linkedin" username={data.linkedin} color={colors.primary} />}
-          {data.twitter && <SocialLink platform="twitter" username={data.twitter} color={colors.secondary} />}
+          {data.github && (
+            <SocialLink platform="github" username={data.github} />
+          )}
+          {data.linkedin && (
+            <SocialLink
+              platform="linkedin"
+              username={data.linkedin}
+              color={colors.primary}
+            />
+          )}
+          {data.twitter && (
+            <SocialLink
+              platform="twitter"
+              username={data.twitter}
+              color={colors.secondary}
+            />
+          )}
         </SocialLinksContainer>
       </Section>
 
-      {(data.stats || data.topLangs || data.streak) && data.githubDataFetched && (
-        <Section>
-          <SectionHeading
-            level={2}
-            className="border-b pb-2"
-            style={{ borderColor: colors.secondary }}
-            color={colors.primary}
-          >
-            GitHub Metrics
-          </SectionHeading>
+      {(data.stats || data.topLangs || data.streak) &&
+        data.githubDataFetched && (
+          <Section>
+            <SectionHeading
+              level={2}
+              className="border-b pb-2"
+              style={{ borderColor: colors.secondary }}
+              color={colors.primary}
+            >
+              GitHub Metrics
+            </SectionHeading>
 
-          {data.stats && (
-            <StatsGrid className="mb-4">
-              <StatCard value={data.publicRepos || 0} label="Repositories" />
-              <StatCard value={data.followers || 0} label="Followers" />
-              <StatCard value={data.totalStars || 0} label="Stars" />
-              <StatCard value={data.totalContributions || 0} label="Contributions" />
-            </StatsGrid>
-          )}
+            {data.stats && (
+              <StatsGrid className="mb-4">
+                <StatCard value={data.publicRepos || 0} label="Repositories" />
+                <StatCard value={data.followers || 0} label="Followers" />
+                <StatCard value={data.totalStars || 0} label="Stars" />
+                <StatCard
+                  value={data.totalContributions || 0}
+                  label="Contributions"
+                />
+              </StatsGrid>
+            )}
 
-          {data.topLangs && data.languages && (
-            <Container className="mb-4">
-              <SectionHeading level={3} className="text-center" color={colors.secondary}>
-                Top Languages
-              </SectionHeading>
-              <div className="space-y-3">
-                {Object.entries(data.languages)
-                  .slice(0, 5)
-                  .map(([lang, percentage]) => (
-                    <ProgressBar
-                      key={lang}
-                      label={lang}
-                      valueLabel={`${percentage}%`}
-                      value={percentage as number}
-                      color={colors.accent}
-                    />
-                  ))}
-              </div>
-            </Container>
-          )}
-        </Section>
-      )}
+            {data.topLangs && data.languages && (
+              <Container className="mb-4">
+                <SectionHeading
+                  level={3}
+                  className="text-center"
+                  color={colors.secondary}
+                >
+                  Top Languages
+                </SectionHeading>
+                <div className="space-y-3">
+                  {Object.entries(data.languages)
+                    .slice(0, 5)
+                    .map(([lang, percentage]) => (
+                      <ProgressBar
+                        key={lang}
+                        label={lang}
+                        valueLabel={`${percentage}%`}
+                        value={percentage as number}
+                        color={colors.accent}
+                      />
+                    ))}
+                </div>
+              </Container>
+            )}
+          </Section>
+        )}
 
       {data.visitors && (
         <div className="text-center text-sm text-gray-500 mt-8 mb-4">
@@ -1132,7 +1365,9 @@ function ElegantTemplate({ data }) {
       )}
 
       <div className="text-center text-sm mt-8">
-        <p style={{ color: colors.primary }}>✨ Thank you for visiting my profile ✨</p>
+        <p style={{ color: colors.primary }}>
+          ✨ Thank you for visiting my profile ✨
+        </p>
       </div>
       {data.showRepos && data.repositories && data.repositories.length > 0 && (
         <Section>
@@ -1159,18 +1394,18 @@ function ElegantTemplate({ data }) {
               data.colors.primary === "#3b82f6"
                 ? "github"
                 : data.colors.primary === "#0ea5e9"
-                  ? "github-dark"
-                  : data.colors.primary === "#16a34a"
-                    ? "github-light"
-                    : data.colors.primary === "#f97316"
-                      ? "halloween"
-                      : data.colors.primary === "#d946ef"
-                        ? "pink"
-                        : data.colors.primary === "#6366f1"
-                          ? "dracula"
-                          : data.colors.primary === "#525252"
-                            ? "github-dark"
-                            : "github"
+                ? "github-dark"
+                : data.colors.primary === "#16a34a"
+                ? "github-light"
+                : data.colors.primary === "#f97316"
+                ? "halloween"
+                : data.colors.primary === "#d946ef"
+                ? "pink"
+                : data.colors.primary === "#6366f1"
+                ? "dracula"
+                : data.colors.primary === "#525252"
+                ? "github-dark"
+                : "github"
             }
           />
         </Section>
@@ -1183,5 +1418,5 @@ function ElegantTemplate({ data }) {
         </Section>
       )}
     </div>
-  )
+  );
 }

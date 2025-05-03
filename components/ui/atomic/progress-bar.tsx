@@ -1,14 +1,14 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface ProgressBarProps {
-  value: number
-  max?: number
-  label?: string
-  valueLabel?: string
-  color?: string
-  backgroundColor?: string
-  className?: string
-  height?: "sm" | "md" | "lg"
+  value: number;
+  max?: number;
+  label?: string;
+  valueLabel?: string;
+  color?: string;
+  backgroundColor?: string;
+  className?: string;
+  height?: "sm" | "md" | "lg";
 }
 
 export function ProgressBar({
@@ -21,13 +21,13 @@ export function ProgressBar({
   className,
   height = "md",
 }: ProgressBarProps) {
-  const percentage = (value / max) * 100
+  const percentage = (value / max) * 100;
 
   const heightClass = {
     sm: "h-1",
     md: "h-2",
     lg: "h-3",
-  }
+  };
 
   return (
     <div className={cn("space-y-1", className)}>
@@ -38,7 +38,10 @@ export function ProgressBar({
         </div>
       )}
       <div
-        className={cn("w-full bg-gray-300 dark:bg-gray-600 rounded-full", heightClass[height])}
+        className={cn(
+          "w-full bg-gray-300 dark:bg-gray-600 rounded-full",
+          heightClass[height]
+        )}
         style={{ backgroundColor }}
       >
         <div
@@ -50,5 +53,5 @@ export function ProgressBar({
         ></div>
       </div>
     </div>
-  )
+  );
 }

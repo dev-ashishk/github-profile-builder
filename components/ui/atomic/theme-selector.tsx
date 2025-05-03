@@ -1,5 +1,4 @@
-"use client"
-import { Button } from "@/components/ui/button"
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,38 +6,58 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu"
-import { Paintbrush, Check } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import { Paintbrush, Check } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 interface ThemeOption {
-  name: string
-  primary: string
-  secondary: string
-  accent: string
-  background?: string
-  text?: string
+  name: string;
+  primary: string;
+  secondary: string;
+  accent: string;
+  background?: string;
+  text?: string;
 }
 
 interface ThemeSelectorProps {
-  themes: ThemeOption[]
-  currentTheme: string
-  onThemeChange: (theme: ThemeOption) => void
-  className?: string
+  themes: ThemeOption[];
+  currentTheme: string;
+  onThemeChange: (theme: ThemeOption) => void;
+  className?: string;
 }
 
-export function ThemeSelector({ themes, currentTheme, onThemeChange, className }: ThemeSelectorProps) {
-  const selectedTheme = themes.find((theme) => theme.name === currentTheme) || themes[0]
+export function ThemeSelector({
+  themes,
+  currentTheme,
+  onThemeChange,
+  className,
+}: ThemeSelectorProps) {
+  const selectedTheme =
+    themes.find((theme) => theme.name === currentTheme) || themes[0];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className={`flex items-center gap-2 ${className}`}>
+        <Button
+          variant="outline"
+          className={`flex items-center gap-2 ${className}`}
+        >
           <Paintbrush size={16} />
           <span>Theme: {selectedTheme.name}</span>
           <div className="ml-auto flex gap-1">
-            <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: selectedTheme.primary }} />
-            <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: selectedTheme.secondary }} />
-            <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: selectedTheme.accent }} />
+            <div
+              className="h-4 w-4 rounded-full border"
+              style={{ backgroundColor: selectedTheme.primary }}
+            />
+            <div
+              className="h-4 w-4 rounded-full border"
+              style={{ backgroundColor: selectedTheme.secondary }}
+            />
+            <div
+              className="h-4 w-4 rounded-full border"
+              style={{ backgroundColor: selectedTheme.accent }}
+            />
           </div>
         </Button>
       </DropdownMenuTrigger>
@@ -53,9 +72,18 @@ export function ThemeSelector({ themes, currentTheme, onThemeChange, className }
           >
             <div className="flex items-center gap-2">
               <div className="flex gap-1">
-                <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: theme.primary }} />
-                <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: theme.secondary }} />
-                <div className="h-4 w-4 rounded-full border" style={{ backgroundColor: theme.accent }} />
+                <div
+                  className="h-4 w-4 rounded-full border"
+                  style={{ backgroundColor: theme.primary }}
+                />
+                <div
+                  className="h-4 w-4 rounded-full border"
+                  style={{ backgroundColor: theme.secondary }}
+                />
+                <div
+                  className="h-4 w-4 rounded-full border"
+                  style={{ backgroundColor: theme.accent }}
+                />
               </div>
               <span>{theme.name}</span>
             </div>
@@ -64,5 +92,5 @@ export function ThemeSelector({ themes, currentTheme, onThemeChange, className }
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -1,40 +1,58 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Separator } from "@/components/ui/separator"
-import { Info } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Info } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
-  const [activeTab, setActiveTab] = useState("layout")
+  const [activeTab, setActiveTab] = useState("layout");
 
   const handleSwitchChange = (name, checked) => {
     setRepoSettings({
       ...repoSettings,
       [name]: checked,
-    })
-  }
+    });
+  };
 
   const handleSelectChange = (name, value) => {
     setRepoSettings({
       ...repoSettings,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleColorChange = (name, color) => {
     setRepoSettings({
       ...repoSettings,
       [name]: color,
-    })
-  }
+    });
+  };
 
   return (
     <Card className="w-full">
@@ -47,7 +65,10 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
                 <Info size={16} className="text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent>
-                <p className="max-w-xs">Customize how your repository cards appear in your GitHub profile README</p>
+                <p className="max-w-xs">
+                  Customize how your repository cards appear in your GitHub
+                  profile README
+                </p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -64,7 +85,12 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
           <TabsContent value="layout" className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="cardStyle">Card Style</Label>
-              <Select value={repoSettings.cardStyle} onValueChange={(value) => handleSelectChange("cardStyle", value)}>
+              <Select
+                value={repoSettings.cardStyle}
+                onValueChange={(value) =>
+                  handleSelectChange("cardStyle", value)
+                }
+              >
                 <SelectTrigger id="cardStyle">
                   <SelectValue placeholder="Select card style" />
                 </SelectTrigger>
@@ -81,7 +107,9 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
               <Label htmlFor="gridColumns">Grid Columns</Label>
               <RadioGroup
                 value={repoSettings.gridColumns.toString()}
-                onValueChange={(value) => handleSelectChange("gridColumns", Number.parseInt(value))}
+                onValueChange={(value) =>
+                  handleSelectChange("gridColumns", Number.parseInt(value))
+                }
                 className="flex space-x-2"
                 id="gridColumns"
               >
@@ -102,7 +130,12 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
 
             <div className="space-y-2">
               <Label htmlFor="alignment">Card Alignment</Label>
-              <Select value={repoSettings.alignment} onValueChange={(value) => handleSelectChange("alignment", value)}>
+              <Select
+                value={repoSettings.alignment}
+                onValueChange={(value) =>
+                  handleSelectChange("alignment", value)
+                }
+              >
                 <SelectTrigger id="alignment">
                   <SelectValue placeholder="Select alignment" />
                 </SelectTrigger>
@@ -119,12 +152,16 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="showDescription">Description</Label>
-                <p className="text-sm text-muted-foreground">Show repository description</p>
+                <p className="text-sm text-muted-foreground">
+                  Show repository description
+                </p>
               </div>
               <Switch
                 id="showDescription"
                 checked={repoSettings.showDescription}
-                onCheckedChange={(checked) => handleSwitchChange("showDescription", checked)}
+                onCheckedChange={(checked) =>
+                  handleSwitchChange("showDescription", checked)
+                }
               />
             </div>
 
@@ -133,12 +170,16 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="showLanguage">Language</Label>
-                <p className="text-sm text-muted-foreground">Show primary language</p>
+                <p className="text-sm text-muted-foreground">
+                  Show primary language
+                </p>
               </div>
               <Switch
                 id="showLanguage"
                 checked={repoSettings.showLanguage}
-                onCheckedChange={(checked) => handleSwitchChange("showLanguage", checked)}
+                onCheckedChange={(checked) =>
+                  handleSwitchChange("showLanguage", checked)
+                }
               />
             </div>
 
@@ -147,12 +188,16 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="showStats">Stats</Label>
-                <p className="text-sm text-muted-foreground">Show stars and forks</p>
+                <p className="text-sm text-muted-foreground">
+                  Show stars and forks
+                </p>
               </div>
               <Switch
                 id="showStats"
                 checked={repoSettings.showStats}
-                onCheckedChange={(checked) => handleSwitchChange("showStats", checked)}
+                onCheckedChange={(checked) =>
+                  handleSwitchChange("showStats", checked)
+                }
               />
             </div>
 
@@ -161,12 +206,16 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="showOwner">Owner</Label>
-                <p className="text-sm text-muted-foreground">Show repository owner</p>
+                <p className="text-sm text-muted-foreground">
+                  Show repository owner
+                </p>
               </div>
               <Switch
                 id="showOwner"
                 checked={repoSettings.showOwner}
-                onCheckedChange={(checked) => handleSwitchChange("showOwner", checked)}
+                onCheckedChange={(checked) =>
+                  handleSwitchChange("showOwner", checked)
+                }
               />
             </div>
           </TabsContent>
@@ -174,7 +223,10 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
           <TabsContent value="style" className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="theme">Card Theme</Label>
-              <Select value={repoSettings.theme} onValueChange={(value) => handleSelectChange("theme", value)}>
+              <Select
+                value={repoSettings.theme}
+                onValueChange={(value) => handleSelectChange("theme", value)}
+              >
                 <SelectTrigger id="theme">
                   <SelectValue placeholder="Select theme" />
                 </SelectTrigger>
@@ -198,7 +250,9 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
               <Label>Border Style</Label>
               <Select
                 value={repoSettings.borderStyle}
-                onValueChange={(value) => handleSelectChange("borderStyle", value)}
+                onValueChange={(value) =>
+                  handleSelectChange("borderStyle", value)
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select border style" />
@@ -214,7 +268,10 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
 
             <div className="space-y-2">
               <Label>Custom Icon Size</Label>
-              <Select value={repoSettings.iconSize} onValueChange={(value) => handleSelectChange("iconSize", value)}>
+              <Select
+                value={repoSettings.iconSize}
+                onValueChange={(value) => handleSelectChange("iconSize", value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select icon size" />
                 </SelectTrigger>
@@ -229,13 +286,16 @@ export function RepositoryCustomizer({ repoSettings, setRepoSettings }) {
         </Tabs>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => setRepoSettings(defaultRepoSettings)}>
+        <Button
+          variant="outline"
+          onClick={() => setRepoSettings(defaultRepoSettings)}
+        >
           Reset to Default
         </Button>
         <Button variant="default">Apply Changes</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 export const defaultRepoSettings = {
@@ -249,4 +309,4 @@ export const defaultRepoSettings = {
   theme: "default",
   borderStyle: "default",
   iconSize: "medium",
-}
+};

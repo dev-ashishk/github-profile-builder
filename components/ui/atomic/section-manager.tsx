@@ -1,9 +1,5 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,30 +8,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   DropdownMenuCheckboxItem,
-} from "@/components/ui/dropdown-menu"
-import { Layers, MoveUp, MoveDown, Eye, EyeOff, Plus } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from "@/components/ui/dropdown-menu";
+import { Layers, MoveUp, MoveDown, Eye, EyeOff, Plus } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Section {
-  id: string
-  name: string
-  icon?: React.ReactNode
-  visible: boolean
+  id: string;
+  name: string;
+  icon?: React.ReactNode;
+  visible: boolean;
 }
 
 interface SectionManagerProps {
-  sections: Section[]
-  onToggleSection: (sectionId: string) => void
-  onMoveSection: (sectionId: string, direction: "up" | "down") => void
-  onAddSection?: (sectionType: string) => void
+  sections: Section[];
+  onToggleSection: (sectionId: string) => void;
+  onMoveSection: (sectionId: string, direction: "up" | "down") => void;
+  onAddSection?: (sectionType: string) => void;
   availableSections?: Array<{
-    type: string
-    name: string
-    description?: string
-    icon?: React.ReactNode
-  }>
-  className?: string
+    type: string;
+    name: string;
+    description?: string;
+    icon?: React.ReactNode;
+  }>;
+  className?: string;
 }
 
 export function SectionManager({
@@ -46,7 +52,7 @@ export function SectionManager({
   availableSections = [],
   className,
 }: SectionManagerProps) {
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className={className}>
@@ -79,8 +85,8 @@ export function SectionManager({
                     size="icon"
                     className="h-6 w-6"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      onToggleSection(section.id)
+                      e.stopPropagation();
+                      onToggleSection(section.id);
                     }}
                   >
                     {section.visible ? <Eye size={14} /> : <EyeOff size={14} />}
@@ -91,8 +97,8 @@ export function SectionManager({
                     size="icon"
                     className="h-6 w-6"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      onMoveSection(section.id, "up")
+                      e.stopPropagation();
+                      onMoveSection(section.id, "up");
                     }}
                     disabled={index === 0}
                   >
@@ -104,8 +110,8 @@ export function SectionManager({
                     size="icon"
                     className="h-6 w-6"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      onMoveSection(section.id, "down")
+                      e.stopPropagation();
+                      onMoveSection(section.id, "down");
                     }}
                     disabled={index === sections.length - 1}
                   >
@@ -123,7 +129,7 @@ export function SectionManager({
                 <DialogTrigger asChild>
                   <DropdownMenuItem
                     onSelect={(e) => {
-                      e.preventDefault()
+                      e.preventDefault();
                     }}
                   >
                     <Plus size={16} className="mr-2" />
@@ -142,15 +148,19 @@ export function SectionManager({
                           variant="outline"
                           className="h-auto p-4 flex flex-col items-start justify-start text-left"
                           onClick={() => {
-                            onAddSection(section.type)
-                            setDialogOpen(false)
+                            onAddSection(section.type);
+                            setDialogOpen(false);
                           }}
                         >
                           <div className="flex items-center gap-2 mb-1">
                             {section.icon}
                             <span className="font-medium">{section.name}</span>
                           </div>
-                          {section.description && <p className="text-xs text-gray-500">{section.description}</p>}
+                          {section.description && (
+                            <p className="text-xs text-gray-500">
+                              {section.description}
+                            </p>
+                          )}
                         </Button>
                       ))}
                     </div>
@@ -162,5 +172,5 @@ export function SectionManager({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }

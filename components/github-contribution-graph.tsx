@@ -1,15 +1,19 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Container } from "@/components/ui/atomic/container"
+import Image from "next/image";
+
+import { Container } from "@/components/ui/atomic/container";
 
 interface GitHubContributionGraphProps {
-  username: string
-  theme?: string
+  username: string;
+  theme?: string;
 }
 
-export function GitHubContributionGraph({ username, theme = "github" }: GitHubContributionGraphProps) {
-  if (!username) return null
+export function GitHubContributionGraph({
+  username,
+  theme = "github",
+}: GitHubContributionGraphProps) {
+  if (!username) return null;
 
   return (
     <Container className="overflow-hidden">
@@ -21,5 +25,5 @@ export function GitHubContributionGraph({ username, theme = "github" }: GitHubCo
         className="w-full h-auto"
       />
     </Container>
-  )
+  );
 }

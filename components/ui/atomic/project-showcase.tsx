@@ -1,26 +1,33 @@
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github } from "lucide-react"
-import Image from "next/image"
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+
+import { Badge } from "@/components/ui/badge";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface Project {
-  title: string
-  description: string
-  image?: string
-  technologies: string[]
-  liveUrl?: string
-  repoUrl?: string
+  title: string;
+  description: string;
+  image?: string;
+  technologies: string[];
+  liveUrl?: string;
+  repoUrl?: string;
 }
 
 interface ProjectCardProps {
-  project: Project
-  className?: string
-  primaryColor?: string
-  secondaryColor?: string
+  project: Project;
+  className?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
-export function ProjectCard({ project, className, primaryColor, secondaryColor }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  className,
+  primaryColor,
+  secondaryColor,
+}: ProjectCardProps) {
   return (
     <Container className={`overflow-hidden ${className}`}>
       <div className="flex flex-col h-full">
@@ -37,11 +44,16 @@ export function ProjectCard({ project, className, primaryColor, secondaryColor }
         )}
 
         <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2" style={{ color: primaryColor }}>
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: primaryColor }}
+          >
             {project.title}
           </h3>
 
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            {project.description}
+          </p>
 
           <div className="flex flex-wrap gap-2 mb-4">
             {project.technologies.map((tech, index) => (
@@ -85,14 +97,14 @@ export function ProjectCard({ project, className, primaryColor, secondaryColor }
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
 interface ProjectShowcaseProps {
-  projects: Project[]
-  title?: string
-  primaryColor?: string
-  secondaryColor?: string
+  projects: Project[];
+  title?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
 export function ProjectShowcase({
@@ -101,7 +113,7 @@ export function ProjectShowcase({
   primaryColor,
   secondaryColor,
 }: ProjectShowcaseProps) {
-  if (!projects || projects.length === 0) return null
+  if (!projects || projects.length === 0) return null;
 
   return (
     <Section>
@@ -110,9 +122,14 @@ export function ProjectShowcase({
       </SectionHeading>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} primaryColor={primaryColor} secondaryColor={secondaryColor} />
+          <ProjectCard
+            key={index}
+            project={project}
+            primaryColor={primaryColor}
+            secondaryColor={secondaryColor}
+          />
         ))}
       </div>
     </Section>
-  )
+  );
 }

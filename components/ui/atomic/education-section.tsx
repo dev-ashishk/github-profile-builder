@@ -1,29 +1,35 @@
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
-import { GraduationCap, Calendar, MapPin } from "lucide-react"
-import Image from "next/image"
+import { GraduationCap, Calendar, MapPin } from "lucide-react";
+import Image from "next/image";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface Education {
-  institution: string
-  degree: string
-  field?: string
-  location?: string
-  startDate: string
-  endDate?: string
-  description?: string
-  logo?: string
-  gpa?: string | number
-  achievements?: string[]
+  institution: string;
+  degree: string;
+  field?: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  description?: string;
+  logo?: string;
+  gpa?: string | number;
+  achievements?: string[];
 }
 
 interface EducationCardProps {
-  education: Education
-  className?: string
-  primaryColor?: string
-  secondaryColor?: string
+  education: Education;
+  className?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
-export function EducationCard({ education, className, primaryColor, secondaryColor }: EducationCardProps) {
+export function EducationCard({
+  education,
+  className,
+  primaryColor,
+  secondaryColor,
+}: EducationCardProps) {
   return (
     <Container className={`p-4 ${className}`}>
       <div className="flex">
@@ -39,7 +45,10 @@ export function EducationCard({ education, className, primaryColor, secondaryCol
           ) : (
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center"
-              style={{ backgroundColor: `${primaryColor || "#3b82f6"}20`, color: primaryColor || "#3b82f6" }}
+              style={{
+                backgroundColor: `${primaryColor || "#3b82f6"}20`,
+                color: primaryColor || "#3b82f6",
+              }}
             >
               <GraduationCap size={32} />
             </div>
@@ -49,10 +58,14 @@ export function EducationCard({ education, className, primaryColor, secondaryCol
         <div className="flex-grow">
           <h3 className="text-lg font-semibold" style={{ color: primaryColor }}>
             {education.degree}
-            {education.field && <span className="font-normal"> in {education.field}</span>}
+            {education.field && (
+              <span className="font-normal"> in {education.field}</span>
+            )}
           </h3>
 
-          <div className="text-base font-medium mb-1">{education.institution}</div>
+          <div className="text-base font-medium mb-1">
+            {education.institution}
+          </div>
 
           <div className="flex flex-wrap items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
             <div className="flex items-center mr-4">
@@ -85,7 +98,9 @@ export function EducationCard({ education, className, primaryColor, secondaryCol
           </div>
 
           {education.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{education.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+              {education.description}
+            </p>
           )}
 
           {education.achievements && education.achievements.length > 0 && (
@@ -98,14 +113,14 @@ export function EducationCard({ education, className, primaryColor, secondaryCol
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
 interface EducationSectionProps {
-  educationList: Education[]
-  title?: string
-  primaryColor?: string
-  secondaryColor?: string
+  educationList: Education[];
+  title?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
 export function EducationSection({
@@ -114,7 +129,7 @@ export function EducationSection({
   primaryColor,
   secondaryColor,
 }: EducationSectionProps) {
-  if (!educationList || educationList.length === 0) return null
+  if (!educationList || educationList.length === 0) return null;
 
   return (
     <Section>
@@ -132,5 +147,5 @@ export function EducationSection({
         ))}
       </div>
     </Section>
-  )
+  );
 }

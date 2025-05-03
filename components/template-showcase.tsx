@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 
 const templates = [
   {
@@ -23,7 +24,8 @@ const templates = [
   },
   {
     name: "Developer",
-    description: "Code-focused design with technical elements and syntax highlighting",
+    description:
+      "Code-focused design with technical elements and syntax highlighting",
     image: "/placeholder.svg?key=sueab",
   },
   {
@@ -33,29 +35,35 @@ const templates = [
   },
   {
     name: "Elegant",
-    description: "Sophisticated and refined design with subtle, tasteful elements",
+    description:
+      "Sophisticated and refined design with subtle, tasteful elements",
     image: "/placeholder.svg?key=64s5l",
   },
-]
+];
 
 export function TemplateShowcase() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTemplate = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % templates.length)
-  }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % templates.length);
+  };
 
   const prevTemplate = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + templates.length) % templates.length)
-  }
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + templates.length) % templates.length
+    );
+  };
 
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Beautiful Templates</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Beautiful Templates
+          </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Choose from 6 professionally designed templates to make your GitHub profile stand out
+            Choose from 6 professionally designed templates to make your GitHub
+            profile stand out
           </p>
         </div>
 
@@ -90,7 +98,9 @@ export function TemplateShowcase() {
                   />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2">{templates[currentIndex].name}</h3>
+                  <h3 className="text-2xl font-bold mb-2">
+                    {templates[currentIndex].name}
+                  </h3>
                   <p>{templates[currentIndex].description}</p>
                 </div>
               </motion.div>
@@ -114,7 +124,9 @@ export function TemplateShowcase() {
               <button
                 key={index}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-primary" : "bg-gray-300 dark:bg-gray-700"
+                  index === currentIndex
+                    ? "bg-primary"
+                    : "bg-gray-300 dark:bg-gray-700"
                 }`}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to template ${index + 1}`}
@@ -124,5 +136,5 @@ export function TemplateShowcase() {
         </div>
       </div>
     </section>
-  )
+  );
 }

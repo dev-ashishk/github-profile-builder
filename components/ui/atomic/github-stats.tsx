@@ -1,21 +1,34 @@
-import { Container } from "./container"
-import { Section, SectionHeading } from "./section"
-import Image from "next/image"
+import Image from "next/image";
+
+import { Container } from "./container";
+import { Section, SectionHeading } from "./section";
 
 interface GitHubStatsProps {
-  username: string
-  showStats?: boolean
-  showLanguages?: boolean
-  showStreak?: boolean
-  showContributions?: boolean
-  showTrophies?: boolean
-  theme?: "default" | "dark" | "radical" | "merko" | "gruvbox" | "tokyonight" | "onedark" | "cobalt" | "synthwave"
-  primaryColor?: string
-  trophyTypes?: TrophyType[]
+  username: string;
+  showStats?: boolean;
+  showLanguages?: boolean;
+  showStreak?: boolean;
+  showContributions?: boolean;
+  showTrophies?: boolean;
+  theme?:
+    | "default"
+    | "dark"
+    | "radical"
+    | "merko"
+    | "gruvbox"
+    | "tokyonight"
+    | "onedark"
+    | "cobalt"
+    | "synthwave";
+  primaryColor?: string;
+  trophyTypes?: TrophyType[];
 }
 
-export function GitHubStatsCard({ username, theme = "default" }: GitHubStatsProps) {
-  if (!username) return null
+export function GitHubStatsCard({
+  username,
+  theme = "default",
+}: GitHubStatsProps) {
+  if (!username) return null;
 
   return (
     <Container className="overflow-hidden">
@@ -27,11 +40,14 @@ export function GitHubStatsCard({ username, theme = "default" }: GitHubStatsProp
         className="w-full h-auto"
       />
     </Container>
-  )
+  );
 }
 
-export function GitHubLanguagesCard({ username, theme = "default" }: GitHubStatsProps) {
-  if (!username) return null
+export function GitHubLanguagesCard({
+  username,
+  theme = "default",
+}: GitHubStatsProps) {
+  if (!username) return null;
 
   return (
     <Container className="overflow-hidden">
@@ -43,11 +59,14 @@ export function GitHubLanguagesCard({ username, theme = "default" }: GitHubStats
         className="w-full h-auto"
       />
     </Container>
-  )
+  );
 }
 
-export function GitHubStreakCard({ username, theme = "default" }: GitHubStatsProps) {
-  if (!username) return null
+export function GitHubStreakCard({
+  username,
+  theme = "default",
+}: GitHubStatsProps) {
+  if (!username) return null;
 
   return (
     <Container className="overflow-hidden">
@@ -59,11 +78,17 @@ export function GitHubStreakCard({ username, theme = "default" }: GitHubStatsPro
         className="w-full h-auto"
       />
     </Container>
-  )
+  );
 }
 
-export function GitHubContributionGraph({ username, theme = "github" }: { username: string; theme?: string }) {
-  if (!username) return null
+export function GitHubContributionGraph({
+  username,
+  theme = "github",
+}: {
+  username: string;
+  theme?: string;
+}) {
+  if (!username) return null;
 
   // Map color theme names to contribution chart themes
   const themeMapping = {
@@ -74,10 +99,10 @@ export function GitHubContributionGraph({ username, theme = "github" }: { userna
     berry: "pink",
     midnight: "dracula",
     monochrome: "github-dark",
-  }
+  };
 
   // Use the mapped theme or default to "github"
-  const chartTheme = themeMapping[theme.toLowerCase()] || "github"
+  const chartTheme = themeMapping[theme.toLowerCase()] || "github";
 
   return (
     <Container className="overflow-hidden">
@@ -89,7 +114,7 @@ export function GitHubContributionGraph({ username, theme = "github" }: { userna
         className="w-full h-auto"
       />
     </Container>
-  )
+  );
 }
 
 type TrophyType =
@@ -103,21 +128,27 @@ type TrophyType =
   | "LongTimeUser"
   | "AncientUser"
   | "Organizations"
-  | "JoinedGitHub"
+  | "JoinedGitHub";
 
 interface GitHubTrophiesProps extends GitHubStatsProps {
-  trophyTypes?: TrophyType[]
+  trophyTypes?: TrophyType[];
 }
 
 export function GitHubTrophies({
   username,
   theme = "default",
-  trophyTypes = ["Stars", "Commits", "PullRequest", "Repositories", "MultiLanguage"],
+  trophyTypes = [
+    "Stars",
+    "Commits",
+    "PullRequest",
+    "Repositories",
+    "MultiLanguage",
+  ],
 }: GitHubTrophiesProps) {
-  if (!username) return null
+  if (!username) return null;
 
   // Join trophy types with commas for the API
-  const titles = trophyTypes.join(",")
+  const titles = trophyTypes.join(",");
 
   return (
     <Container className="overflow-hidden">
@@ -130,7 +161,7 @@ export function GitHubTrophies({
         unoptimized={true}
       />
     </Container>
-  )
+  );
 }
 
 export function GitHubMetricsSection({
@@ -142,9 +173,15 @@ export function GitHubMetricsSection({
   showTrophies = true,
   theme = "default",
   primaryColor,
-  trophyTypes = ["Stars", "Commits", "PullRequest", "Repositories", "MultiLanguage"],
+  trophyTypes = [
+    "Stars",
+    "Commits",
+    "PullRequest",
+    "Repositories",
+    "MultiLanguage",
+  ],
 }: GitHubStatsProps) {
-  if (!username) return null
+  if (!username) return null;
 
   return (
     <Section>
@@ -153,11 +190,21 @@ export function GitHubMetricsSection({
       </SectionHeading>
       <div className="space-y-4">
         {showStats && <GitHubStatsCard username={username} theme={theme} />}
-        {showLanguages && <GitHubLanguagesCard username={username} theme={theme} />}
+        {showLanguages && (
+          <GitHubLanguagesCard username={username} theme={theme} />
+        )}
         {showStreak && <GitHubStreakCard username={username} theme={theme} />}
-        {showContributions && <GitHubContributionGraph username={username} theme={theme} />}
-        {showTrophies && <GitHubTrophies username={username} theme={theme} trophyTypes={trophyTypes} />}
+        {showContributions && (
+          <GitHubContributionGraph username={username} theme={theme} />
+        )}
+        {showTrophies && (
+          <GitHubTrophies
+            username={username}
+            theme={theme}
+            trophyTypes={trophyTypes}
+          />
+        )}
       </div>
     </Section>
-  )
+  );
 }

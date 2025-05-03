@@ -1,7 +1,5 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
 import {
   Github,
   ArrowRight,
@@ -14,53 +12,60 @@ import {
   ExternalLink,
   Mail,
   MapPin,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { trackEvent } from "@/utils/analytics"
+} from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { trackEvent } from "@/utils/analytics";
 
 export function ElegantLandingPage({ onStartBuilder }) {
-  const [isHovering, setIsHovering] = useState(false)
-  const [hoveredSection, setHoveredSection] = useState(null)
-  const [expandedSection, setExpandedSection] = useState(null)
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredSection, setHoveredSection] = useState(null);
+  const [expandedSection, setExpandedSection] = useState(null);
 
   const handleSectionHover = (section) => {
-    setHoveredSection(section)
+    setHoveredSection(section);
     // We don't track hover events to avoid excessive analytics events
-  }
+  };
 
   const handleSectionClick = (section) => {
-    const newExpandedState = expandedSection === section ? null : section
-    setExpandedSection(newExpandedState)
+    const newExpandedState = expandedSection === section ? null : section;
+    setExpandedSection(newExpandedState);
 
     // Track section interaction in Google Analytics
-    trackEvent(newExpandedState ? "section_expanded" : "section_collapsed", "landing_page_interaction", section)
-  }
+    trackEvent(
+      newExpandedState ? "section_expanded" : "section_collapsed",
+      "landing_page_interaction",
+      section
+    );
+  };
 
   const handleStartBuilding = () => {
     // Track the start building button click
-    trackEvent("start_building", "landing_page_action", "primary_cta")
-    onStartBuilder()
-  }
+    trackEvent("start_building", "landing_page_action", "primary_cta");
+    onStartBuilder();
+  };
 
   const handleGitHubLink = () => {
     // Track GitHub link click
-    trackEvent("github_link_click", "landing_page_action", "secondary_cta")
-  }
+    trackEvent("github_link_click", "landing_page_action", "secondary_cta");
+  };
 
   const handlePreviewClick = () => {
     // Track preview button click
-    trackEvent("preview_click", "landing_page_interaction", "code_preview")
-  }
+    trackEvent("preview_click", "landing_page_interaction", "code_preview");
+  };
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-50 via-purple-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-indigo-950">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] dark:opacity-[0.05]" />
-      </div>
-
       {/* Decorative circles */}
       <motion.div
         className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 blur-3xl"
@@ -117,7 +122,8 @@ export function ElegantLandingPage({ onStartBuilder }) {
             </h1>
 
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-md">
-              Create an impressive GitHub profile in minutes with our elegant, easy-to-use builder
+              Create an impressive GitHub profile in minutes with our elegant,
+              easy-to-use builder
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -129,7 +135,10 @@ export function ElegantLandingPage({ onStartBuilder }) {
                 onMouseLeave={() => setIsHovering(false)}
               >
                 <span>Start Building</span>
-                <motion.div animate={{ x: isHovering ? 5 : 0 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  animate={{ x: isHovering ? 5 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <ArrowRight size={18} />
                 </motion.div>
               </Button>
@@ -177,7 +186,9 @@ export function ElegantLandingPage({ onStartBuilder }) {
                       <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
-                    <div className="text-xs text-gray-600 dark:text-gray-400">README.md</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">
+                      README.md
+                    </div>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -203,7 +214,11 @@ export function ElegantLandingPage({ onStartBuilder }) {
                     >
                       {/* Header section - interactive */}
                       <div
-                        className={`flex items-center gap-2 ${hoveredSection === "header" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`flex items-center gap-2 ${
+                          hoveredSection === "header"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("header")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("header")}
@@ -211,11 +226,19 @@ export function ElegantLandingPage({ onStartBuilder }) {
                       >
                         <User
                           size={18}
-                          className={`${hoveredSection === "header" ? "text-primary" : "text-primary/80"} transition-colors duration-200`}
+                          className={`${
+                            hoveredSection === "header"
+                              ? "text-primary"
+                              : "text-primary/80"
+                          } transition-colors duration-200`}
                         />
-                        <span className="font-semibold">Hi there, I'm John Doe 👋</span>
+                        <span className="font-semibold">
+                          Hi there, I'm John Doe 👋
+                        </span>
                         {hoveredSection === "header" && (
-                          <span className="ml-auto text-xs text-primary opacity-80">Edit header</span>
+                          <span className="ml-auto text-xs text-primary opacity-80">
+                            Edit header
+                          </span>
                         )}
                       </div>
 
@@ -236,16 +259,23 @@ export function ElegantLandingPage({ onStartBuilder }) {
 
                       {/* Bio section - interactive */}
                       <div
-                        className={`${hoveredSection === "bio" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`${
+                          hoveredSection === "bio"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("bio")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("bio")}
                         data-section="bio"
                       >
                         <div className="text-gray-700 dark:text-gray-300">
-                          Full Stack Developer passionate about creating elegant solutions
+                          Full Stack Developer passionate about creating elegant
+                          solutions
                           {hoveredSection === "bio" && (
-                            <span className="ml-2 text-xs text-primary opacity-80">Edit bio</span>
+                            <span className="ml-2 text-xs text-primary opacity-80">
+                              Edit bio
+                            </span>
                           )}
                         </div>
                       </div>
@@ -267,7 +297,11 @@ export function ElegantLandingPage({ onStartBuilder }) {
 
                       {/* Skills section - interactive */}
                       <div
-                        className={`flex items-center gap-2 ${hoveredSection === "skills" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`flex items-center gap-2 ${
+                          hoveredSection === "skills"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("skills")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("skills")}
@@ -275,16 +309,60 @@ export function ElegantLandingPage({ onStartBuilder }) {
                       >
                         <Code
                           size={14}
-                          className={`${hoveredSection === "skills" ? "text-secondary" : "text-gray-600 dark:text-gray-400"} transition-colors duration-200`}
+                          className={`${
+                            hoveredSection === "skills"
+                              ? "text-secondary"
+                              : "text-gray-600 dark:text-gray-400"
+                          } transition-colors duration-200`}
                         />
                         <span className="text-gray-600 dark:text-gray-400">
-                          <span className={hoveredSection === "skills" ? "text-secondary" : ""}>JavaScript</span> |
-                          <span className={hoveredSection === "skills" ? "text-secondary" : ""}> React</span> |
-                          <span className={hoveredSection === "skills" ? "text-secondary" : ""}> Node.js</span> |
-                          <span className={hoveredSection === "skills" ? "text-secondary" : ""}> TypeScript</span>
+                          <span
+                            className={
+                              hoveredSection === "skills"
+                                ? "text-secondary"
+                                : ""
+                            }
+                          >
+                            JavaScript
+                          </span>{" "}
+                          |
+                          <span
+                            className={
+                              hoveredSection === "skills"
+                                ? "text-secondary"
+                                : ""
+                            }
+                          >
+                            {" "}
+                            React
+                          </span>{" "}
+                          |
+                          <span
+                            className={
+                              hoveredSection === "skills"
+                                ? "text-secondary"
+                                : ""
+                            }
+                          >
+                            {" "}
+                            Node.js
+                          </span>{" "}
+                          |
+                          <span
+                            className={
+                              hoveredSection === "skills"
+                                ? "text-secondary"
+                                : ""
+                            }
+                          >
+                            {" "}
+                            TypeScript
+                          </span>
                         </span>
                         {hoveredSection === "skills" && (
-                          <span className="ml-auto text-xs text-primary opacity-80">Edit skills</span>
+                          <span className="ml-auto text-xs text-primary opacity-80">
+                            Edit skills
+                          </span>
                         )}
                       </div>
 
@@ -305,7 +383,11 @@ export function ElegantLandingPage({ onStartBuilder }) {
 
                       {/* Stats section - interactive */}
                       <div
-                        className={`flex items-center gap-4 ${hoveredSection === "stats" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`flex items-center gap-4 ${
+                          hoveredSection === "stats"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("stats")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("stats")}
@@ -314,19 +396,29 @@ export function ElegantLandingPage({ onStartBuilder }) {
                         <div className="flex items-center gap-1">
                           <Star
                             size={14}
-                            className={`fill-current ${hoveredSection === "stats" ? "text-yellow-500" : "text-yellow-600 dark:text-yellow-500"} transition-colors duration-200`}
+                            className={`fill-current ${
+                              hoveredSection === "stats"
+                                ? "text-yellow-500"
+                                : "text-yellow-600 dark:text-yellow-500"
+                            } transition-colors duration-200`}
                           />
                           <span className="text-xs">120 stars</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <GitFork
                             size={14}
-                            className={`${hoveredSection === "stats" ? "text-blue-500" : "text-blue-600 dark:text-blue-500"} transition-colors duration-200`}
+                            className={`${
+                              hoveredSection === "stats"
+                                ? "text-blue-500"
+                                : "text-blue-600 dark:text-blue-500"
+                            } transition-colors duration-200`}
                           />
                           <span className="text-xs">48 forks</span>
                         </div>
                         {hoveredSection === "stats" && (
-                          <span className="ml-auto text-xs text-primary opacity-80">Edit stats</span>
+                          <span className="ml-auto text-xs text-primary opacity-80">
+                            Edit stats
+                          </span>
                         )}
                       </div>
 
@@ -347,7 +439,11 @@ export function ElegantLandingPage({ onStartBuilder }) {
 
                       {/* Projects section - interactive */}
                       <div
-                        className={`border-t border-gray-200 dark:border-gray-800 pt-3 ${hoveredSection === "projects" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md border-0 pt-4" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`border-t border-gray-200 dark:border-gray-800 pt-3 ${
+                          hoveredSection === "projects"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md border-0 pt-4"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("projects")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("projects")}
@@ -356,17 +452,45 @@ export function ElegantLandingPage({ onStartBuilder }) {
                         <div className="flex items-center gap-2 mb-2">
                           <FileCode
                             size={14}
-                            className={`${hoveredSection === "projects" ? "text-secondary" : "text-secondary/80"} transition-colors duration-200`}
+                            className={`${
+                              hoveredSection === "projects"
+                                ? "text-secondary"
+                                : "text-secondary/80"
+                            } transition-colors duration-200`}
                           />
                           <span className="font-medium">Featured Projects</span>
                           {hoveredSection === "projects" && (
-                            <span className="ml-auto text-xs text-primary opacity-80">Edit projects</span>
+                            <span className="ml-auto text-xs text-primary opacity-80">
+                              Edit projects
+                            </span>
                           )}
                         </div>
                         <ul className="list-disc list-inside text-xs space-y-1 text-gray-700 dark:text-gray-300">
-                          <li className={hoveredSection === "projects" ? "text-secondary/90" : ""}>React Dashboard</li>
-                          <li className={hoveredSection === "projects" ? "text-secondary/90" : ""}>Node.js API</li>
-                          <li className={hoveredSection === "projects" ? "text-secondary/90" : ""}>
+                          <li
+                            className={
+                              hoveredSection === "projects"
+                                ? "text-secondary/90"
+                                : ""
+                            }
+                          >
+                            React Dashboard
+                          </li>
+                          <li
+                            className={
+                              hoveredSection === "projects"
+                                ? "text-secondary/90"
+                                : ""
+                            }
+                          >
+                            Node.js API
+                          </li>
+                          <li
+                            className={
+                              hoveredSection === "projects"
+                                ? "text-secondary/90"
+                                : ""
+                            }
+                          >
                             TypeScript Library
                           </li>
                         </ul>
@@ -389,7 +513,11 @@ export function ElegantLandingPage({ onStartBuilder }) {
 
                       {/* Contact section - interactive */}
                       <div
-                        className={`flex items-center gap-2 ${hoveredSection === "contact" ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md" : ""} transition-all duration-200 cursor-pointer`}
+                        className={`flex items-center gap-2 ${
+                          hoveredSection === "contact"
+                            ? "bg-gray-100 dark:bg-gray-800/60 -mx-2 px-2 py-1 rounded-md"
+                            : ""
+                        } transition-all duration-200 cursor-pointer`}
                         onMouseEnter={() => handleSectionHover("contact")}
                         onMouseLeave={() => handleSectionHover(null)}
                         onClick={() => handleSectionClick("contact")}
@@ -399,20 +527,30 @@ export function ElegantLandingPage({ onStartBuilder }) {
                           <div className="flex items-center gap-1">
                             <Mail
                               size={12}
-                              className={`${hoveredSection === "contact" ? "text-primary" : ""} transition-colors duration-200`}
+                              className={`${
+                                hoveredSection === "contact"
+                                  ? "text-primary"
+                                  : ""
+                              } transition-colors duration-200`}
                             />
                             <span>john@example.com</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <MapPin
                               size={12}
-                              className={`${hoveredSection === "contact" ? "text-primary" : ""} transition-colors duration-200`}
+                              className={`${
+                                hoveredSection === "contact"
+                                  ? "text-primary"
+                                  : ""
+                              } transition-colors duration-200`}
                             />
                             <span>San Francisco, CA</span>
                           </div>
                         </div>
                         {hoveredSection === "contact" && (
-                          <span className="ml-auto text-xs text-primary opacity-80">Edit contact</span>
+                          <span className="ml-auto text-xs text-primary opacity-80">
+                            Edit contact
+                          </span>
                         )}
                       </div>
 
@@ -469,5 +607,5 @@ export function ElegantLandingPage({ onStartBuilder }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

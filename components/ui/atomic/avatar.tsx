@@ -1,15 +1,16 @@
-import Image from "next/image"
-import { cn } from "@/lib/utils"
+import Image from "next/image";
+
+import { cn } from "@/lib/utils";
 
 interface AvatarProps {
-  src?: string
-  alt: string
-  fallback?: string
-  size?: number
-  className?: string
-  rounded?: "none" | "sm" | "md" | "lg" | "full"
-  border?: boolean
-  borderColor?: string
+  src?: string;
+  alt: string;
+  fallback?: string;
+  size?: number;
+  className?: string;
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+  border?: boolean;
+  borderColor?: string;
 }
 
 export function Avatar({
@@ -28,10 +29,10 @@ export function Avatar({
     md: "rounded-md",
     lg: "rounded-lg",
     full: "rounded-full",
-  }
+  };
 
-  const borderClass = border ? "border-2" : ""
-  const borderStyle = border && borderColor ? { borderColor } : {}
+  const borderClass = border ? "border-2" : "";
+  const borderStyle = border && borderColor ? { borderColor } : {};
 
   if (src) {
     return (
@@ -43,7 +44,7 @@ export function Avatar({
         className={cn(roundedClass[rounded], borderClass, className)}
         style={borderStyle}
       />
-    )
+    );
   }
 
   return (
@@ -52,7 +53,7 @@ export function Avatar({
         "flex items-center justify-center bg-gray-200 dark:bg-gray-700",
         roundedClass[rounded],
         borderClass,
-        className,
+        className
       )}
       style={{
         width: size,
@@ -62,5 +63,5 @@ export function Avatar({
     >
       <span className="text-2xl font-bold">{fallback || alt.charAt(0)}</span>
     </div>
-  )
+  );
 }
