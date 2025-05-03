@@ -68,11 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 - [React](https://reactjs.org/) - UI library
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - UI component library
-- [Vercel](https://vercel.com/) - Deployment platform
 
-## 📊 Analytics
-
-This project uses [Vercel Analytics](https://vercel.com/analytics) for privacy-friendly website analytics. No personal data is collected, and no cookies are used.
 
 ## 🤝 Contributing
 
