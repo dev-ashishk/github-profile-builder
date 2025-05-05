@@ -18,11 +18,11 @@ export const metadata = {
   openGraph: {
     title: "GitHub Profile README Builder",
     description: "Create beautiful GitHub profile READMEs with ease",
-    url: "https://github-profile-builder-dev-ashishk.vercel.app",
+    url: "https://dev-ashishk.github.io/github-profile-builder",
     siteName: "GitHub Profile README Builder",
     images: [
       {
-        url: "https://github-profile-builder-dev-ashishk.vercel.app/og-image.png",
+        url: "https://dev-ashishk.github.io/github-profile-builder/github-profile-builder-preview.png",
         width: 1200,
         height: 630,
         alt: "GitHub Profile README Builder",
@@ -36,7 +36,7 @@ export const metadata = {
     title: "GitHub Profile README Builder",
     description: "Create beautiful GitHub profile READMEs with ease",
     images: [
-      "https://github-profile-builder-dev-ashishk.vercel.app/og-image.png",
+      "https://dev-ashishk.github.io/github-profile-builder/github-profile-builder-preview.png",
     ],
   },
 };
