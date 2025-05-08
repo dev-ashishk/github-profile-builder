@@ -56,6 +56,59 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  h1 {
+    @apply text-3xl font-bold mb-6 text-foreground;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold mt-8 mb-4 text-foreground;
+  }
+
+  h3 {
+    @apply text-xl font-medium mt-6 mb-3 text-foreground;
+  }
+
+  h4 {
+    @apply text-lg font-medium mt-4 mb-2 text-foreground;
+  }
+
+  h5 {
+    @apply text-base font-medium mt-3 mb-2 text-foreground;
+  }
+
+  h6 {
+    @apply text-sm font-medium mt-3 mb-2 text-foreground;
+  }
+
+  p {
+    @apply text-base leading-relaxed mb-4 text-foreground;
+  }
+
+  ul,
+  ol {
+    @apply mb-4 pl-5;
+  }
+
+  li {
+    @apply mb-1;
+  }
+
+  a:not([class]) {
+    @apply text-primary hover:underline;
+  }
+
+  blockquote {
+    @apply pl-4 border-l-4 border-muted italic my-4;
+  }
+
+  code:not([class]) {
+    @apply px-1.5 py-0.5 rounded bg-muted text-foreground text-sm font-mono;
+  }
+
+  pre {
+    @apply p-4 rounded bg-muted overflow-x-auto mb-4;
+  }
 }
 
 @keyframes gradient-shift {
@@ -112,4 +165,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 8s linear infinite;
+}
+
+/* Improve spacing in accordion content */
+.accordion-content p {
+  @apply mb-3;
+}
+
+.accordion-content ul,
+.accordion-content ol {
+  @apply mb-3;
 }

@@ -7,7 +7,8 @@ import {
 } from "@/data/default-data";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
-import { Check, Copy, RefreshCw, AlertCircle } from "lucide-react";
+import { Check, Copy, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,8 +28,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ConfettiButton } from "@/components/confetti-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { getCookie, setCookie, eraseCookie } from "@/utils/cookie-utils";
+import { HelpDocs } from "@/components/help-docs";
 
 export default function Home() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const helpSection = searchParams.get("help");
+
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [activeTemplate, setActiveTemplate] = useState("modern");
@@ -40,10 +47,20 @@ export default function Home() {
   const [generatedMarkdown, setGeneratedMarkdown] = useState("");
   const [showLandingPage, setShowLandingPage] = useState(true);
   const [showGuide, setShowGuide] = useState(false);
+  const [showHelpDocs, setShowHelpDocs] = useState(false);
   const [expandedPreview, setExpandedPreview] = useState(false);
   const [isLoadingFromStorage, setIsLoadingFromStorage] = useState(true);
   const [hasLoadedFromStorage, setHasLoadedFromStorage] = useState(false);
   const [showResetAlert, setShowResetAlert] = useState(false);
+
+  // Check if we should show help docs based on URL
+  useEffect(() => {
+    if (helpSection) {
+      setShowLandingPage(false);
+      setShowHelpDocs(true);
+      trackEvent("help_viewed", "documentation", helpSection);
+    }
+  }, [helpSection]);
 
   // Guide steps for the tooltip tour
   const guideSteps = [
@@ -127,10 +144,10 @@ export default function Home() {
     };
 
     // Only load from storage if not on landing page
-    if (!showLandingPage) {
+    if (!showLandingPage && !showHelpDocs) {
       loadProfileFromStorage();
     }
-  }, [showLandingPage, toast]);
+  }, [showLandingPage, showHelpDocs, toast]);
 
   // Handle theme change
   const handleThemeChange = (theme) => {
@@ -320,14 +337,16 @@ export default function Home() {
   // Start the builder
   const handleStartBuilder = () => {
     setShowLandingPage(false);
-    // Check if user has seen the guide before
-    const hasSeenGuide = localStorage.getItem("github-profile-guide-seen");
+
+    // Check if user has seen the guide before using cookies
+    const hasSeenGuide = getCookie("github-profile-guide-seen");
+
     // Only show the guide for new users
     if (!hasSeenGuide) {
       setTimeout(() => {
         setShowGuide(true);
-        // Mark that the user has seen the guide
-        localStorage.setItem("github-profile-guide-seen", "true");
+        // Set cookie to remember that user has seen the guide
+        setCookie("github-profile-guide-seen", "true", 30); // Expires in 30 days
         trackEvent("guide_shown", "user_experience", "first_time_user");
       }, 1000);
     } else {
@@ -356,28 +375,53 @@ export default function Home() {
 
   // Reset guide to show again
   const handleResetGuide = () => {
-    localStorage.removeItem("github-profile-guide-seen");
+    eraseCookie("github-profile-guide-seen");
     setShowGuide(true);
     trackEvent("guide_reset", "user_action", "manual_reset");
     toast({
       title: "Guide reset",
-      description: "The interactive guide will show again on your next visit",
+      description: "The interactive guide will now show",
     });
+  };
+
+  // Toggle help documentation
+  const handleToggleHelpDocs = (section = "") => {
+    if (showHelpDocs) {
+      setShowHelpDocs(false);
+      router.push("/");
+      trackEvent("help_docs_closed", "user_action", "help_documentation");
+    } else {
+      setShowHelpDocs(true);
+      if (section) {
+        router.push(`/help/${section}`);
+      } else {
+        router.push("/help");
+      }
+      trackEvent(
+        "help_docs_opened",
+        "user_action",
+        section || "getting_started"
+      );
+    }
   };
 
   if (showLandingPage) {
     return <ElegantLandingPage onStartBuilder={handleStartBuilder} />;
   }
 
+  if (showHelpDocs) {
+    return <HelpDocs onClose={() => handleToggleHelpDocs()} />;
+  }
+
   return (
     <TooltipProvider>
       <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        <ThemeToggle />
         <TooltipGuide
           steps={guideSteps}
           isOpen={showGuide}
           onClose={() => {
             setShowGuide(false);
+            setCookie("github-profile-guide-seen", "true", 30); // Expires in 30 days
             trackEvent("guide_closed", "user_action", "tooltip_guide");
           }}
         />
@@ -389,21 +433,37 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-8"
           >
-            <h1 className="text-4xl font-extrabold tracking-tight shimmer-effect">
-              GitHub Profile README Builder
-            </h1>
+            <div className="flex justify-center items-center gap-2 mb-2">
+              <h1 className="text-4xl font-extrabold tracking-tight shimmer-effect">
+                GitHub Profile README Builder
+              </h1>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => handleToggleHelpDocs()}
+                className="ml-2"
+                title="Help & Documentation"
+              >
+                <HelpCircle size={20} />
+              </Button>
+            </div>
             <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
-              Create an impressive GitHub profile page with our easy-to-use
-              builder
+              Create an impressive GitHub profile README that showcases your
+              skills, projects, and contributions. Our intuitive builder helps
+              you stand out with beautiful templates and real-time previews.
             </p>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleResetGuide}
-              className="mt-2"
-            >
-              Show Guide
-            </Button>
+            <div className="flex justify-center gap-2 mt-2">
+              <Button variant="ghost" size="sm" onClick={handleResetGuide}>
+                Show Guide
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleToggleHelpDocs()}
+              >
+                Help & Documentation
+              </Button>
+            </div>
           </motion.div>
 
           {hasLoadedFromStorage && (
@@ -557,6 +617,15 @@ export default function Home() {
                           {copied ? <Check size={16} /> : <Copy size={16} />}
                           {copied ? "Copied" : "Copy Markdown"}
                         </ConfettiButton>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleToggleHelpDocs("step-by-step")}
+                          className="flex items-center gap-1"
+                        >
+                          <HelpCircle size={16} />
+                          <span className="hidden sm:inline">How to Use</span>
+                        </Button>
                       </div>
                     </div>
 

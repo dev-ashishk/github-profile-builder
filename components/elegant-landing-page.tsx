@@ -23,7 +23,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { trackEvent } from "@/utils/analytics";
 
 export function ElegantLandingPage({ onStartBuilder }) {
@@ -93,11 +92,6 @@ export function ElegantLandingPage({ onStartBuilder }) {
           delay: 1,
         }}
       />
-
-      {/* Theme toggle */}
-      <div className="absolute top-6 right-6 z-10">
-        <ThemeToggle />
-      </div>
 
       {/* Main content */}
       <div className="flex h-full w-full items-center justify-center px-6">
