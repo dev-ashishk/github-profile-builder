@@ -31,6 +31,7 @@ const nextConfig = {
   devIndicators: false,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || "",
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  // output: "export",
 };
 
 export default nextConfig;
