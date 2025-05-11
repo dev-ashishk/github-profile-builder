@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 export async function GET() {
   // Base URL - replace with your actual domain in production
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
