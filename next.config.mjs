@@ -15,23 +15,23 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: basePath + "/sitemap.xml",
-        destination: "/api/sitemap.xml",
-      },
-      {
-        source: basePath + "/robots.txt",
-        destination: "/api/robots.txt",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: basePath + "/sitemap.xml",
+  //       destination: "/api/sitemap.xml",
+  //     },
+  //     {
+  //       source: basePath + "/robots.txt",
+  //       destination: "/api/robots.txt",
+  //     },
+  //   ];
+  // },
   reactStrictMode: true,
   devIndicators: false,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || "",
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
-  // output: "export",
+  // basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  output: "export",
 };
 
 export default nextConfig;
