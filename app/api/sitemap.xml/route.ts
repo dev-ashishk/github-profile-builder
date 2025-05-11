@@ -40,7 +40,7 @@ export async function GET() {
     .map(
       (route) => `
     <url>
-      <loc>${baseUrl}/${route.url}</loc>
+      <loc>${baseUrl}${route.url}</loc>
       <lastmod>${date}</lastmod>
       <changefreq>${route.changefreq}</changefreq>
       <priority>${route.priority}</priority>
