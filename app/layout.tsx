@@ -21,11 +21,11 @@ export const metadata = {
     title: "GitHub Profile README Builder",
     description:
       "Create an impressive GitHub profile README that showcases your skills, projects, and contributions. Our intuitive builder helps you stand out with beautiful templates and real-time previews.",
-    url: "https://dev-ashishk.github.io/github-profile-builder",
+    url: "https://github-readme-builder.hyper2x.com",
     siteName: "GitHub Profile README Builder",
     images: [
       {
-        url: "https://dev-ashishk.github.io/github-profile-builder/github-profile-builder-preview.png",
+        url: "https://github-readme-builder.hyper2x.com/github-profile-builder-preview.png",
         width: 1200,
         height: 630,
         alt: "GitHub Profile README Builder",
@@ -42,7 +42,7 @@ export const metadata = {
     description:
       "Create an impressive GitHub profile README that showcases your skills, projects, and contributions. Our intuitive builder helps you stand out with beautiful templates and real-time previews.",
     images: [
-      "https://dev-ashishk.github.io/github-profile-builder/github-profile-builder-preview.png",
+      "https://github-readme-builder.hyper2x.com/github-profile-builder-preview.png",
     ],
   },
 };
@@ -54,6 +54,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="uw_QH5CWz-ork8-az_GFhMs-b4qD_4j27Qz7qSIJUjo"
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
